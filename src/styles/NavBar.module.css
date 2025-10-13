@@ -1,0 +1,154 @@
+.contenedorHeader {
+  background: #171616;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  border-bottom: 1px solid #58c3f9;
+}
+
+.headerContent {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+.logo a {
+  font-size: 36px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.5s;
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+}
+
+.navLinks li a {
+  color: #fff;
+  margin: 0 15px;
+  padding: 3px;
+  text-decoration: none;
+  transition: 0.5s;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+}
+
+.navLinks li a:hover,
+.logo a:hover {
+  color: #58c3f9;
+}
+
+/* --- Botón hamburguesa --- */
+.hamburger {
+  width: 30px;
+  height: 24px;
+  position: relative;
+  display: none;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.hamburger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* más suave */
+}
+
+/* Posiciones iniciales */
+.hamburger span:nth-child(1) {
+  top: 0;
+}
+.hamburger span:nth-child(2) {
+  top: 10px;
+}
+.hamburger span:nth-child(3) {
+  top: 20px;
+}
+
+/* Estado abierto con morphing */
+.hamburger.open span:nth-child(1) {
+  top: 10px;
+  transform: rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0); /* se encoge antes de desaparecer */
+}
+
+.hamburger.open span:nth-child(3) {
+  top: 10px;
+  transform: rotate(-45deg);
+}
+
+/* --- Overlay menú móvil --- */
+.mobileMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(23, 22, 22, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 98;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.mobileMenu ul {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+}
+
+.mobileMenu li {
+  margin: 20px 0;
+}
+
+.mobileMenu a {
+  font-size: 28px;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.mobileMenu a:hover {
+  color: #58c3f9;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navLinks {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}

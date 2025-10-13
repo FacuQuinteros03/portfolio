@@ -1,0 +1,171 @@
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 60px;
+
+  /* fondo animado */
+  background: linear-gradient(-45deg, #e9f5fa, #c3e6f8, #dbeafe, #0a63cf);
+  background-size: 400% 400%;
+  animation: gradient 12s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* animaciones iniciales */
+.content h1,
+.content p,
+.content .ctaButton {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.content.show h1 {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.8s ease-out;
+}
+
+.content.show p {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.8s ease-out 0.2s;
+}
+
+.content.show .ctaButton {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.8s ease-out 0.4s;
+}
+
+/* estilos de texto */
+.content h1 {
+  font-size: 4rem;
+  margin: 0;
+  color: #1e2326;
+}
+
+.subtext {
+  margin: 15px 0 25px; /* espacio entre texto y botón */
+}
+
+.content p {
+  display: block; /* asegura línea completa */
+  font-size: 2rem;
+  color: #3d6bff;
+  margin: 0;
+}
+
+/* efecto typing */
+.typing {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 3px;
+  color: #3d6bff;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* botón con brillo + pulse */
+.ctaButton {
+  display: inline-block;
+  margin-top: 0; /* ya controlamos con .subtext */
+  padding: 10px 25px;
+  background-color: #3d6bff;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  animation: pulse 2s infinite;
+  animation-delay: 5s; /* empieza después de 5s */
+}
+
+.ctaButton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: skewX(-20deg);
+}
+
+.ctaButton:hover::after {
+  left: 100%;
+  transition: left 0.5s;
+}
+
+.ctaButton:hover {
+  background-color: #2e5fff;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* 📱 responsive */
+@media (max-width: 768px) {
+  .content h1 {
+    font-size: 2.8rem;
+  }
+
+  .content p {
+    font-size: 1.4rem;
+  }
+
+  .ctaButton {
+    padding: 8px 18px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content h1 {
+    font-size: 2.2rem;
+  }
+
+  .content p {
+    font-size: 1.2rem;
+  }
+
+  .ctaButton {
+    padding: 7px 15px;
+    font-size: 0.9rem;
+  }
+}
