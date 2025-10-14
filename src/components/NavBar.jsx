@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import styles from '../styles/Navbar.module.css';
+import styles from '../styles/NavBar.module.css';
 
-export default function Navbar() {
+export default function NavBar() {
   const [open, setOpen] = useState(false);
   const toggleMenu = () => setOpen(!open);
 
@@ -62,3 +62,5 @@ export default function Navbar() {
     </div>
   );
 }
+
+/* Cambiar nombre */
