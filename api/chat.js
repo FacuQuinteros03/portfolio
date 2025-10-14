@@ -1,42 +1,58 @@
 // chat.js
 import { GoogleGenAI } from '@google/genai';
 
-// Inicializa el cliente de la API con tu clave de entorno
-// Asegúrate de que tu clave esté guardada en una variable de entorno llamada GEMINI_API_KEY
-// por ejemplo: process.env.GEMINI_API_KEY
-const ai = new GoogleGenAI({});
+// CAMBIO CLAVE: Obtener la clave de entorno y pasarla explícitamente
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+// Inicializa el cliente de la API
+// Si la clave no está disponible, esto fallará, lo cual es lo que queremos detectar.
+const ai = new GoogleGenAI({
+  apiKey: GEMINI_API_KEY, // PASAR LA CLAVE DE FORMA EXPLÍCITA
+});
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    // Método no permitido
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  // ANTES DE INTENTAR USAR LA API: Verificar si la clave existe.
+  if (!GEMINI_API_KEY) {
+    console.error(
+      'ERROR CRÍTICO: La variable GEMINI_API_KEY no se encontró en el entorno.'
+    );
+    return res
+      .status(500)
+      .json({
+        error: 'Error interno: La clave de la API no está configurada.',
+      });
   }
 
   const { message } = req.body;
 
   try {
+    // ... (el resto del código sigue igual)
+
     // 1. Iniciar un chat con la configuración del sistema
     const chat = ai.chats.create({
-      model: 'gemini-2.5-flash', // Un modelo rápido y eficiente para chat
-      config: {
-        systemInstruction:
-          'Sos un asistente amigable del portfolio de Facundo. Responde de manera concisa y útil.',
-      },
+      model: 'gemini-2.5-flash',
+      // ...
     });
 
-    // 2. Enviar el mensaje del usuario y obtener la respuesta
+    // 2. Enviar el mensaje del usuario
     const response = await chat.sendMessage({
       message: message,
     });
 
-    // 3. Acceder a la respuesta
-    const botReply = response.text || 'No hay respuesta del modelo.';
+    // ...
 
-    // 4. Enviar la respuesta al cliente
+    const botReply = response.text || 'No hay respuesta del modelo.';
     res.status(200).json({ reply: botReply });
   } catch (error) {
-    console.error('Error al conectarse con la API de Gemini:', error);
-    // Cambiar el mensaje de error para reflejar que es un problema con Gemini
+    // Esta línea es crucial para ver el error real
+    console.error(
+      'Error al conectarse con la API de Gemini:',
+      error.message || error
+    );
     res.status(500).json({ error: 'Error al conectarse con Google Gemini' });
   }
 }
