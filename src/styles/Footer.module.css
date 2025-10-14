@@ -70,10 +70,22 @@
     flex-direction: column;
     gap: 15px;
     text-align: center;
+    align-items: center;
   }
 
   .footerLinks {
     flex-direction: column;
     gap: 10px;
+    align-items: center;
+    padding: 0;
+  }
+
+  .socials {
+    justify-content: center;
+  }
+
+  .logo a {
+    display: inline-block;
+    text-align: center;
   }
 }
