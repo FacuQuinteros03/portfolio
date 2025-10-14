@@ -1,4 +1,4 @@
-import NavBar from './components/NavBar';
+import Navbar from './components/NavBar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Proyectos from './components/Proyectos';
@@ -9,7 +9,7 @@ import Chat from './components/Chat';
 function App() {
   return (
     <div>
-      <NavBar />
+      <Navbar />
       <main>
         <Hero />
         <Chat />
