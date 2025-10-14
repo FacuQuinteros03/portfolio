@@ -1,58 +1,47 @@
-// chat.js
-import { GoogleGenAI } from '@google/genai';
+// /pages/api/chat.js
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// CAMBIO CLAVE: Obtener la clave de entorno y pasarla explícitamente
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// Inicializa el cliente de la API
-// Si la clave no está disponible, esto fallará, lo cual es lo que queremos detectar.
-const ai = new GoogleGenAI({
-  apiKey: GEMINI_API_KEY, // PASAR LA CLAVE DE FORMA EXPLÍCITA
-});
+// Historial en memoria temporal (solo dura mientras el server esté activo)
+let chatHistory = [];
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // ANTES DE INTENTAR USAR LA API: Verificar si la clave existe.
   if (!GEMINI_API_KEY) {
-    console.error(
-      'ERROR CRÍTICO: La variable GEMINI_API_KEY no se encontró en el entorno.'
-    );
-    return res
-      .status(500)
-      .json({
-        error: 'Error interno: La clave de la API no está configurada.',
-      });
+    console.error('ERROR: No se encontró GEMINI_API_KEY en el entorno.');
+    return res.status(500).json({ error: 'Clave API no configurada.' });
   }
 
   const { message } = req.body;
 
+  if (!message) {
+    return res.status(400).json({ error: 'No se envió ningún mensaje.' });
+  }
+
   try {
-    // ... (el resto del código sigue igual)
+    const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
-    // 1. Iniciar un chat con la configuración del sistema
-    const chat = ai.chats.create({
-      model: 'gemini-2.5-flash',
-      // ...
-    });
+    // Agregamos el mensaje del usuario al historial
+    chatHistory.push({ role: 'user', parts: [{ text: message }] });
 
-    // 2. Enviar el mensaje del usuario
-    const response = await chat.sendMessage({
-      message: message,
-    });
+    // Creamos el chat con historial
+    const chat = model.startChat({ history: chatHistory });
 
-    // ...
+    // Enviamos el mensaje y obtenemos la respuesta
+    const result = await chat.sendMessage(message);
+    const botReply = result.response.text();
 
-    const botReply = response.text || 'No hay respuesta del modelo.';
+    // Guardamos la respuesta del bot en el historial
+    chatHistory.push({ role: 'model', parts: [{ text: botReply }] });
+
     res.status(200).json({ reply: botReply });
   } catch (error) {
-    // Esta línea es crucial para ver el error real
-    console.error(
-      'Error al conectarse con la API de Gemini:',
-      error.message || error
-    );
+    console.error('Error al conectarse con Gemini:', error);
     res.status(500).json({ error: 'Error al conectarse con Google Gemini' });
   }
 }

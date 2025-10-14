@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #58c3f9;
+  background: linear-gradient(135deg, #58c3f9, #3d6bff);
   color: white;
   border: none;
   border-radius: 50%;
@@ -15,7 +15,6 @@
 }
 
 .chatButton:hover {
-  background: #3d6bff;
   transform: scale(1.1);
 }
 
@@ -25,7 +24,7 @@
   right: 20px;
   width: 320px;
   background: #171616;
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
@@ -35,18 +34,19 @@
 }
 
 .header {
-  background: #58c3f9;
+  background: linear-gradient(135deg, #58c3f9, #3d6bff);
   color: white;
-  padding: 10px;
+  padding: 12px;
   font-weight: bold;
   text-align: center;
 }
 
 .messages {
-  height: 260px;
+  height: 280px;
   padding: 10px;
   overflow-y: auto;
   background: #1f1f1f;
+  scroll-behavior: smooth;
 }
 
 .messageUser {
@@ -63,18 +63,22 @@
   display: inline-block;
   background: #58c3f9;
   color: white;
-  padding: 8px 12px;
-  border-radius: 12px 12px 0 12px;
+  padding: 10px 14px;
+  border-radius: 16px 16px 0 16px;
   font-size: 0.9rem;
+  max-width: 75%;
+  word-wrap: break-word;
 }
 
 .bubbleBot {
   display: inline-block;
   background: #2c2c2c;
-  color: #ccc;
-  padding: 8px 12px;
-  border-radius: 12px 12px 12px 0;
+  color: #ddd;
+  padding: 10px 14px;
+  border-radius: 16px 16px 16px 0;
   font-size: 0.9rem;
+  max-width: 75%;
+  word-wrap: break-word;
 }
 
 .inputArea {
@@ -103,6 +107,14 @@
 
 .sendButton:hover {
   background: #3d6bff;
+}
+
+.loading {
+  color: #aaa;
+  font-size: 0.85rem;
+  margin-top: 6px;
+  text-align: left;
+  font-style: italic;
 }
 
 @keyframes fadeIn {

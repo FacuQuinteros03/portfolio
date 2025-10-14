@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { FaComments, FaTimes } from 'react-icons/fa';
+import { useState, useRef, useEffect } from 'react';
+import { FaComments, FaTimes, FaPaperPlane } from 'react-icons/fa';
 import styles from '../styles/Chatbot.module.css';
 
 export default function Chat() {
@@ -7,6 +7,15 @@ export default function Chat() {
   const [input, setInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, loading]);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -30,7 +39,7 @@ export default function Chat() {
       console.error(error);
       const botMsg = {
         sender: 'bot',
-        text: 'Error al conectarse con el chat.',
+        text: '❌ Error al conectarse con el chat.',
       };
       setMessages((prev) => [...prev, botMsg]);
     } finally {
@@ -46,7 +55,10 @@ export default function Chat() {
 
       {isOpen && (
         <div className={styles.chatWindow}>
-          <div className={styles.header}>🤖 Chat conmigo</div>
+          <div className={styles.header}>
+            <span>🤖 Chat con Gemini</span>
+          </div>
+
           <div className={styles.messages}>
             {messages.map((msg, i) => (
               <div
@@ -65,17 +77,19 @@ export default function Chat() {
               </div>
             ))}
             {loading && <p className={styles.loading}>Escribiendo...</p>}
+            <div ref={messagesEndRef} />
           </div>
+
           <div className={styles.inputArea}>
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               className={styles.input}
-              placeholder="Preguntame algo..."
+              placeholder="Escribí tu mensaje..."
               onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
             />
             <button onClick={sendMessage} className={styles.sendButton}>
-              Enviar
+              <FaPaperPlane size={16} />
             </button>
           </div>
         </div>
