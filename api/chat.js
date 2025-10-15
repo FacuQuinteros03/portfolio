@@ -1,27 +1,20 @@
-// /pages/api/chat.js
+// /pages/api/chat.js (VERSIÓN FINAL Y COMPATIBLE)
 
-// Usamos el SDK correcto para Node.js
-import { GoogleGenAI } from '@google/genai';
-
-// NO uses variables globales en serverless como chatHistory
-// (Si necesitas historial, debes implementarlo con cookies o DB)
+import { GoogleGenAI } from '@google/genai'; // ✅ SDK INSTALADO
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // --- SECCIÓN DE VERIFICACIÓN DE CLAVE DENTRO DEL HANDLER ---
+  // Leer la clave de forma segura
   const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
   if (!GEMINI_API_KEY) {
-    console.error('ERROR CRÍTICO: Clave API no configurada.');
-    // Devolvemos JSON para EVITAR el SyntaxError en el frontend
     return res
       .status(500)
       .json({ error: 'Clave API no configurada en Vercel.' });
   }
-  // -----------------------------------------------------------
 
   const { message } = req.body;
   if (!message) {
@@ -29,27 +22,32 @@ export default async function handler(req, res) {
   }
 
   try {
-    // 1. Inicialización POSPUESTA dentro del try/catch
+    // 1. Inicialización del cliente
     const genAI = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
-    // 2. Ejecutar sin historial (para simplificar la depuración)
-    const result = await model.generateContent({
-      contents: [{ role: 'user', parts: [{ text: message }] }],
+    // 2. Definición de la instrucción del sistema
+    const systemInstruction =
+      'Sos un asistente amigable del portfolio de Facundo. Responde de manera concisa y útil.';
+
+    // NOTA: ELIMINAMOS EL HISTORIAL GLOBAL por ser inseguro en Vercel.
+    // Ahora, cada solicitud es una pregunta nueva.
+
+    // 3. Llamada al método de generación de contenido (el equivalente a 'getGenerativeModel' + 'generateContent')
+    const result = await genAI.generateContent({
+      model: 'gemini-2.5-flash', // Modelo a usar
+      contents: [{ role: 'user', parts: [{ text: message }] }], // Mensaje de usuario
       config: {
-        systemInstruction:
-          'Sos un asistente amigable del portfolio de Facundo. Responde de manera concisa y útil.',
+        systemInstruction: systemInstruction, // Instrucción del sistema
       },
     });
 
+    // 4. Obtener la respuesta (la sintaxis es simple con el nuevo SDK)
     const botReply = result.text || 'No hay respuesta del modelo.';
+
     res.status(200).json({ reply: botReply });
   } catch (error) {
-    console.error(
-      'Error al conectarse con Gemini (traza):',
-      error.message || error
-    );
-    // 3. Devolvemos el error en JSON de forma robusta
+    // Si la clave es inválida, este error se capturará aquí y devolverá JSON.
+    console.error('Error FATAL de la API de Gemini:', error.message || error);
     res
       .status(500)
       .json({
