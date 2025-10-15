@@ -4,7 +4,7 @@ import Button from './Button';
 
 const phrases = [
   'Desarrollador FullStack',
-  'Técnico en Inteligencia Artificial',
+  'Especialista en Inteligencia Artificial',
   'Analista de Datos',
 ];
 
