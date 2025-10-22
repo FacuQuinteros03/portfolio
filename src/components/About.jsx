@@ -15,37 +15,37 @@ const skills = [
   {
     title: 'FrontEnd React',
     description:
-      'Proyectos freelance: MakiSanTech, portafolio personal, páginas con Next.js. Enfocado en UI, consumo de APIs, CRUD y diseño responsive.',
+      'Desarrollo de proyectos freelance, pasantías y portafolio personal con Next.js. Enfocado en UI, consumo de APIs, CRUD y diseño responsive.',
     icon: <FaReact size={40} color="#61DBFB" />,
   },
   {
     title: 'Análisis de Datos Python',
     description:
-      'Trabajos académicos: análisis de datasets, visualización con Matplotlib y Pandas. Experimentos y proyectos de la facultad.',
+      'Proyectos de análisis de datos con Python (Pandas, NumPy, Matplotlib, Seaborn). Experiencia en limpieza y transformación de datasets masivos, análisis exploratorio y creación de gráficos informativos.',
     icon: <FaPython size={40} color="#306998" />,
   },
   {
     title: 'Power BI',
     description:
-      'Experiencia básica en dashboards y reportes. Integración de datos y visualización para proyectos simples.',
+      'Desarrollo de procesos ETL desde cero e integración de datos de múltiples fuentes. Creación de dashboards interactivos y reportes claros para visualización de métricas clave.',
     icon: <FaChartBar size={40} color="#F2C811" />,
   },
   {
     title: 'Inteligencia Artificial',
     description:
-      'Proyectos y ejercicios de la Tecnicatura. Modelos básicos de ML, clasificación y predicción.',
+      'Proyectos académicos de Machine Learning básico: construcción de modelos de clasificación y predicción sobre distintos conjuntos de datos.',
     icon: <FaBrain size={40} color="#6A1B9A" />,
   },
   {
     title: 'Bases de Datos Relacionales',
     description:
-      'Experiencia con SQL, modelado de datos, normalización y consultas complejas. Práctica en JOINs, subconsultas, agregaciones y optimización de queries.',
+      'Experiencia con SQL, modelado de datos y consultas complejas. Práctica en JOINs, subconsultas, agregaciones y optimización de queries.',
     icon: <FaDatabase size={40} color="#f29111" />,
   },
   {
     title: 'R / Probabilidad y Estadística',
     description:
-      'Análisis de datos, visualización y modelado estadístico con R. Experiencia en probabilidad, distribuciones, tests estadísticos y regresión.',
+      'Análisis de datos y modelado estadístico con R. Experiencia en probabilidad, distribuciones, tests estadísticos y regresión.',
     icon: <FaChartLine size={40} color="#276dc3" />,
   },
 ];

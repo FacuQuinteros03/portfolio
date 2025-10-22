@@ -12,7 +12,7 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <Chat />
+        {/* <Chat /> */}
         <About />
         <Proyectos />
         <Contacto />

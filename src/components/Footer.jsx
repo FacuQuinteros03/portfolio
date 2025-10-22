@@ -13,10 +13,9 @@ export default function Footer() {
         {/* Links */}
         <ul className={styles.footerLinks}>
           <li>
-            <a href="#contact">Contactame</a>
-          </li>
-          <li>
-            <a href="#chat">Chatea</a>
+            <a href="https://www.linkedin.com/in/facundo-quinteros-125051232/">
+              Contactame
+            </a>
           </li>
         </ul>
 
