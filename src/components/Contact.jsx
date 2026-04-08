@@ -28,7 +28,7 @@ export default function Contact() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // Permitir '+' y números en teléfono
+    // Validación: No números en nombre, solo números y + en teléfono
     const cleanedValue =
       name === 'name'
         ? value.replace(/[0-9]/g, '')
@@ -51,15 +51,25 @@ export default function Contact() {
     setStatus('sending');
 
     try {
+      // MAPEAMOS LAS VARIABLES PARA QUE COINCIDAN CON TU TEMPLATE DE EMAILJS
+      const templateParams = {
+        from_name: form.name,
+        from_email: form.email,
+        phone: form.phone,
+        message: form.message,
+      };
+
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        form,
+        templateParams,
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       );
+
       setStatus('success');
       setForm({ name: '', email: '', phone: '', message: '' });
     } catch (err) {
+      console.error('Error en EmailJS:', err);
       setStatus('error');
       setErrorMsg('Hubo un problema. ¿Me contactás por LinkedIn?');
     }
