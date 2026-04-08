@@ -151,6 +151,23 @@
   transform: translateY(-2px);
 }
 
+/* AUTOCOMPLETADO DEL NAVEGADOR - Fix definitivo */
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover,
+.field input:-webkit-autofill:focus,
+.field input:-webkit-autofill:active {
+  /* Esto "tapa" el color amarillo/celeste de Chrome con el color de tu input */
+  -webkit-box-shadow: 0 0 0 1000px #020617 inset !important;
+  /* Esto asegura que el texto sea blanco/gris claro y no negro */
+  -webkit-text-fill-color: #f1f5f9 !important;
+  /* Mantenemos el borde que definiste */
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  /* Importante para que no se pierda el redondeado */
+  border-radius: 12px;
+  /* Transición para que no parpadee al entrar el autocompletado */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 textarea {
   min-height: 120px;
   resize: vertical;
