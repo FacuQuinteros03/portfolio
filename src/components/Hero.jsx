@@ -39,7 +39,7 @@ export default function Hero() {
       () => {
         setSubIndex((prev) => prev + (reverse ? -1 : 1));
       },
-      reverse ? 40 : 80
+      reverse ? 40 : 70,
     );
 
     return () => clearTimeout(timeout);
@@ -52,14 +52,32 @@ export default function Hero() {
   return (
     <section className={styles.hero} id="home">
       <div className={`${styles.content} ${show ? styles.show : ''}`}>
-        <h1>Facundo Quinteros</h1>
-        <div className={styles.subtext}>
-          <p className={styles.typing}>
-            {text}
-            <span className={styles.cursor}>|</span>
-          </p>
+        <span className={styles.badge}>Disponible para trabajar</span>
+
+        <h1>
+          Facundo <span>Quinteros</span>
+        </h1>
+
+        <p className={styles.typing}>
+          {text}
+          <span className={styles.cursor}>|</span>
+        </p>
+
+        <p className={styles.description}>
+          Desarrollo experiencias web modernas con foco en rendimiento, diseño y
+          escalabilidad.
+        </p>
+
+        <div className={styles.buttons}>
+          <Button href="#projects">Ver proyectos</Button>
+          <a
+            href="/Quinteros_Facundo_CV.pdf"
+            download
+            className={`${styles.cv} ${styles.secondary}`}
+          >
+            Descargar CV
+          </a>
         </div>
-        <Button href="#projects">Ver proyectos</Button>
       </div>
     </section>
   );

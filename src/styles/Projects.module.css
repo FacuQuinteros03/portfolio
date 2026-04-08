@@ -1,134 +1,233 @@
+/* Projects.module.css */
+
 .projects {
-  padding: 50px 20px;
-  background: #171616;
+  padding: 120px 5%;
+  background: #020617;
+  max-width: 1400px; /* Un poco más de aire para 4 tarjetas */
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.header {
   text-align: center;
+  margin-bottom: 80px;
 }
 
-.projects h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
-  color: #fff;
+.subtitle {
+  color: #60a5fa;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 10px;
 }
 
+.title {
+  font-size: 3rem;
+  color: #f8fafc;
+  margin: 0;
+  font-weight: 800;
+}
+
+/* --- GRID CONFIG --- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  /* Forzamos tarjetas de mínimo 400px para que las imágenes se vean grandes */
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 40px;
+  justify-content: center;
 }
 
+/* --- CARD --- */
 .card {
   position: relative;
-  border-radius: 12px;
-  padding: 20px;
-  background: #171616;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 28px;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  overflow: hidden; /* para que no se salga el borde animado */
-  z-index: 1;
+  height: 100%;
 }
 
-/* Borde animado */
-.card::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: inherit;
-  background: linear-gradient(270deg, #e9f5fa, #58c3f9, #dbeafe, #73aef6);
-  background-size: 600% 600%;
-  animation: borderMove 8s linear infinite;
-  z-index: -1;
-}
-
-/* Fondo interno */
-.card::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  right: 2px;
-  bottom: 2px;
-  border-radius: inherit;
-  background: #171616;
-  z-index: -1;
-}
-
-@keyframes borderMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Hover */
 .card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-15px) scale(1.02);
+  border-color: rgba(96, 165, 250, 0.3);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-.card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: #fff; /* blanco para destacar */
-}
-
-.card p {
-  flex-grow: 1;
-  font-size: 0.9rem;
-  color: #ccc; /* gris claro para buen contraste */
-  margin-bottom: 15px;
-}
-
-.card img {
-  width: 100%;
-  aspect-ratio: 16/9; /* se adapta automáticamente */
-  object-fit: cover;
-  border-radius: 8px;
-  border: 1px solid #333;
-  margin-bottom: 15px;
-  transition: transform 0.5s ease;
-}
-
-.button {
-  display: inline-block;
-  text-decoration: none;
-  padding: 10px 16px;
-  border: 1px solid #58c3f9;
-  border-radius: 6px;
-  color: #58c3f9;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
+/* --- IMAGEN --- */
+.imageContainer {
   position: relative;
+  width: 100%;
+  aspect-ratio: 16/9; /* Relación más alta para más presencia visual */
+  overflow: hidden;
+  background: #1e293b; /* Color de fondo mientras carga */
+}
+
+.imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card:hover .imageContainer img {
+  transform: scale(1.1);
+}
+
+/* Overlay sutil al hacer hover */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 5;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+.iconLink {
+  color: white;
+  font-size: 1.4rem;
+  background: #60a5fa;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(30px);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 10px 20px rgba(96, 165, 250, 0.3);
+}
+
+.card:hover .iconLink {
+  transform: translateY(0);
+}
+
+/* --- CONTENIDO --- */
+.content {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-grow: 1;
+  position: relative;
+  z-index: 10;
+}
+
+.tagWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.miniTag {
+  font-size: 0.65rem;
+  background: rgba(96, 165, 250, 0.1);
+  color: #60a5fa;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+.content h3 {
+  color: #f8fafc;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.content p {
+  color: #94a3b8;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limita a 3 líneas para mantener simetría */
+  -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.button::after {
+.mainLink {
+  margin-top: auto; /* Empuja el link al fondo siempre */
+  color: #f8fafc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  padding-top: 10px;
+}
+
+.mainLink span {
+  transition: transform 0.3s ease;
+  color: #60a5fa;
+}
+
+.mainLink:hover {
+  color: #60a5fa;
+}
+
+.mainLink:hover span {
+  transform: translateX(8px);
+}
+
+/* --- SPOTLIGHT EFFECT --- */
+/* El brillo que sigue al mouse */
+.card::after {
   content: '';
   position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: -100%;
-  background: rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at var(--x) var(--y),
+    rgba(96, 165, 250, 0.1),
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.button:hover::after {
-  left: 0;
+.card:hover::after {
+  opacity: 1;
 }
 
-.button:hover {
-  background: #58c3f9;
-  color: #fff;
-  transform: translateY(-2px);
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr; /* Una sola columna en móviles */
+    gap: 30px;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .projects {
+    padding: 80px 5%;
+  }
 }

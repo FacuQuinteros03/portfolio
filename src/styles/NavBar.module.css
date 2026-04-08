@@ -1,56 +1,80 @@
 .contenedorHeader {
-  background: #171616;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 99;
-  border-bottom: 1px solid #58c3f9;
+
+  background: rgba(2, 6, 23, 0.7);
+  backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid rgba(96, 165, 250, 0.15);
 }
 
+/* CONTENIDO */
 .headerContent {
   max-width: 1100px;
   margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  padding: 18px 20px;
 }
 
+/* LOGO */
 .logo a {
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 600;
-  color: #fff;
+  color: #e2e8f0;
   text-decoration: none;
-  transition: 0.5s;
+  letter-spacing: 1px;
+  transition: all 0.25s ease;
 }
 
+.logo a:hover {
+  color: #60a5fa;
+}
+
+/* LINKS */
 .navLinks {
   display: flex;
   list-style: none;
+  gap: 25px;
 }
 
 .navLinks li a {
-  color: #fff;
-  margin: 0 15px;
-  padding: 3px;
+  color: #cbd5f5;
   text-decoration: none;
-  transition: 0.5s;
-  font-family: 'Work Sans', sans-serif;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 0.95rem;
+  position: relative;
+  transition: all 0.25s ease;
 }
 
-.navLinks li a:hover,
-.logo a:hover {
-  color: #58c3f9;
+/* underline animado */
+.navLinks li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background: #60a5fa;
+  transition: width 0.25s ease;
 }
 
-/*NavBar*/
+.navLinks li a:hover {
+  color: #e2e8f0;
+}
 
-/* --- Botón hamburguesa --- */
+.navLinks li a:hover::after {
+  width: 100%;
+}
+
+/* --- HAMBURGER --- */
 .hamburger {
-  width: 30px;
-  height: 24px;
+  width: 28px;
+  height: 22px;
   position: relative;
   display: none;
   cursor: pointer;
@@ -59,15 +83,14 @@
 
 .hamburger span {
   position: absolute;
-  left: 0;
   width: 100%;
-  height: 3px;
-  background: #fff;
+  height: 2px;
+  background: #e2e8f0;
   border-radius: 2px;
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* más suave */
+  transition: all 0.3s ease;
 }
 
-/* Posiciones iniciales */
+/* posiciones */
 .hamburger span:nth-child(1) {
   top: 0;
 }
@@ -78,7 +101,7 @@
   top: 20px;
 }
 
-/* Estado abierto con morphing */
+/* animación */
 .hamburger.open span:nth-child(1) {
   top: 10px;
   transform: rotate(45deg);
@@ -86,7 +109,6 @@
 
 .hamburger.open span:nth-child(2) {
   opacity: 0;
-  transform: scaleX(0); /* se encoge antes de desaparecer */
 }
 
 .hamburger.open span:nth-child(3) {
@@ -94,19 +116,23 @@
   transform: rotate(-45deg);
 }
 
-/* --- Overlay menú móvil --- */
+/* --- MOBILE MENU --- */
 .mobileMenu {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  background: rgba(23, 22, 22, 0.95);
+
+  background: rgba(2, 6, 23, 0.95);
+  backdrop-filter: blur(12px);
+
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 98;
-  animation: fadeIn 0.3s ease-in-out;
+
+  animation: fadeIn 0.3s ease;
 }
 
 .mobileMenu ul {
@@ -116,27 +142,26 @@
 }
 
 .mobileMenu li {
-  margin: 20px 0;
+  margin: 25px 0;
 }
 
 .mobileMenu a {
-  font-size: 28px;
-  color: #fff;
+  font-size: 26px;
+  color: #cbd5f5;
   text-decoration: none;
-  font-family: 'Work Sans', sans-serif;
-  font-weight: 600;
-  transition: color 0.3s ease;
+  font-weight: 500;
+  transition: all 0.25s ease;
 }
 
 .mobileMenu a:hover {
-  color: #58c3f9;
+  color: #60a5fa;
 }
 
-/* Animación */
+/* ANIMACIÓN */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
@@ -144,7 +169,7 @@
   }
 }
 
-/* Responsive */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   .navLinks {
     display: none;
@@ -154,4 +179,3 @@
     display: flex;
   }
 }
-/* cambiamos el nombre */

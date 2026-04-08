@@ -1,129 +1,234 @@
+/* ==============================
+   CONTENEDOR PRINCIPAL
+   ============================== */
 .about {
-  padding: 80px 20px;
-  background: linear-gradient(
-    to top,
-    rgb(55, 65, 81),
-    rgb(17, 24, 39),
-    rgb(0, 0, 0)
-  );
-}
-
-.aboutContainer {
+  padding: 120px 5%;
+  background: radial-gradient(circle at 0% 0%, #0a1930 0%, #02040a 50%);
+  min-height: 100vh;
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
-  gap: 40px;
-  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.container {
   max-width: 1200px;
-  margin: 0 auto;
-}
-
-.content {
-  flex: 1 1 350px;
-  max-width: 400px;
-  background: linear-gradient(to right, rgb(233, 245, 250), rgb(195, 230, 248));
-  padding: 40px 30px;
-  border-radius: 15px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-}
-
-.content h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.content p {
-  font-size: 1rem;
-  margin-bottom: 20px;
-  line-height: 1.6;
-}
-
-.photo {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto 20px auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Bloque de skills */
-.skills {
-  flex: 2 1 500px;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: 380px 1fr;
+  gap: 80px;
+  align-items: center;
 }
 
-.card {
-  background: linear-gradient(145deg, #e9f5fa, #c3e6f8);
-  border-radius: 15px;
-  padding: 25px 20px;
+/* --- LADO IZQUIERDO: BRANDING PERSONAL --- */
+.profileSide {
   text-align: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  position: sticky;
+  top: 120px;
 }
 
-.card:hover,
-.content:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(145deg, #c3e6f8, #e9f5fa);
+.photoFrame {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  margin: 0 auto 30px;
+  border-radius: 40px;
+  overflow: hidden; /* CRUCIAL: Esto es lo que corta el logo */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  background: #050505;
 }
 
-.icon {
-  margin-bottom: 15px;
+.mainPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* 🔥 TRUCO ANTI-LOGO: 
+     1. Escalamos la imagen un 15% para que los bordes (donde está el logo) queden fuera.
+     2. Ajustamos la posición para centrar tu cara. */
+  transform: scale(1.15);
+  object-position: center 15%;
+
+  transition:
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.3s ease;
+  filter: brightness(0.9);
 }
 
-h3 {
-  margin-bottom: 10px;
-  color: #1e2326;
+/* HOVER DE LA FOTO: Aumentamos el zoom para el efecto visual sin revelar el logo */
+.photoFrame:hover .mainPhoto {
+  transform: scale(1.25);
+  filter: brightness(1.1);
 }
 
-p {
-  font-size: 0.95rem;
-  color: #333;
-  line-height: 1.5;
+.photoGlow {
+  position: absolute;
+  inset: 0;
+  /* Viñeta para oscurecer la base y ayudar a disimular cualquier rastro inferior */
+  background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.7));
+  pointer-events: none;
+  z-index: 2;
 }
 
-/* Responsive */
+.name {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #f8fafc;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+}
 
-@media (min-width: 1024px) {
-  .aboutContainer {
-    align-items: flex-start;
+.name span {
+  font-weight: 800;
+  color: #60a5fa;
+  display: block;
+  text-shadow: 0 0 30px rgba(96, 165, 250, 0.4);
+}
+
+.tagline {
+  color: #64748b;
+  font-size: 0.85rem;
+  margin-top: 15px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: 500;
+}
+
+/* --- LADO DERECHO: NARRATIVA & TECH --- */
+.contentSide {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.sectionTitle {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #60a5fa;
+  letter-spacing: 4px;
+  margin-bottom: 25px;
+  display: block;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.bio p {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #cbd5e1;
+  font-weight: 400;
+}
+
+.bio strong {
+  color: #fff;
+  font-weight: 600;
+  border-bottom: 2px solid rgba(96, 165, 250, 0.3);
+}
+
+/* GRID DE TECNOLOGÍAS */
+.skillGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.skillGroup {
+  background: rgba(15, 23, 42, 0.3);
+  padding: 25px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  transition: all 0.3s ease;
+}
+
+.skillGroup:hover {
+  border-color: rgba(96, 165, 250, 0.2);
+  background: rgba(15, 23, 42, 0.5);
+  transform: translateY(-5px);
+}
+
+.groupHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #f1f5f9;
+  margin-bottom: 18px;
+}
+
+.groupHeader svg {
+  color: #60a5fa;
+  filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.5));
+}
+
+.groupHeader h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* TAGS / PILLS */
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  cursor: default;
+  backdrop-filter: blur(4px);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1100px) {
+  .container {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .profileSide {
+    position: relative;
+    top: 0;
+  }
+
+  .photoFrame {
+    width: 260px;
+    height: 340px;
+  }
+
+  .bio p {
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  .sectionTitle {
+    text-align: center;
   }
 }
 
-@media (max-width: 1023px) {
-  .aboutContainer {
-    align-items: center;
-  }
-}
-
-@media (max-width: 768px) {
-  .aboutContainer {
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
+@media (max-width: 650px) {
+  .skillGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
-  .content {
-    width: 100%;
-    max-width: 500px;
-    padding: 30px 20px;
+  .about {
+    padding: 80px 20px;
   }
 
-  .photo {
-    width: 120px;
-    height: 120px;
+  .name {
+    font-size: 2rem;
   }
 
-  .skills {
-    width: 100%;
-    max-width: 600px;
-    grid-template-columns: 1fr; /* una columna en mobile */
+  .tagList {
+    justify-content: center;
+  }
+
+  .groupHeader {
+    justify-content: center;
   }
 }
