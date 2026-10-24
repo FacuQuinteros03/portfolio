@@ -40,9 +40,12 @@ export function useScrollTyping(text: string) {
     const scrollable = rect.height - window.innerHeight;
     const progress = scrollable > 0 ? Math.min(1, Math.max(0, -rect.top / scrollable)) : 1;
     const next = Math.min(total, Math.floor((progress / TYPING_END) * total + 0.5));
+    // El giro del teclado sigue al scroll de forma continua, sin pasar por React.
+    el.style.setProperty('--scroll', Math.min(1, progress / TYPING_END).toFixed(3));
     const prev = countRef.current;
     if (next === prev) return;
 
+    el.style.setProperty('--typed', (next / total).toFixed(3));
     countRef.current = next;
     setScrolled(next);
     setPressed(next > prev ? text[next - 1] : 'Backspace');

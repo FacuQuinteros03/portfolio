@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import { PROJECTS } from '@/lib/content';
 import SectionHeader from './SectionHeader';
+import TiltCard from './TiltCard';
 
 export default function Projects() {
   return (
@@ -16,7 +17,8 @@ export default function Projects() {
 
       <ul className="grid gap-6 md:grid-cols-2">
         {PROJECTS.map((project) => (
-          <li
+          <TiltCard
+            as="li"
             key={project.title}
             className="flex flex-col overflow-hidden rounded-2xl border border-line bg-surface-2"
           >
@@ -45,7 +47,7 @@ export default function Projects() {
                 <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true" />
               </a>
             </div>
-          </li>
+          </TiltCard>
         ))}
       </ul>
     </section>

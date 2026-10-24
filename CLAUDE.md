@@ -5,7 +5,7 @@ Sitio personal publicado en https://facundoquinteros.vercel.app (Vercel, rama `m
 ## Base
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Hanken Grotesk (`next/font`).
-Formulario de contacto con EmailJS (`@emailjs/browser`) y validación con zod. Íconos de trazo con `lucide-react`.
+Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Formulario de contacto con EmailJS (`@emailjs/browser`) y validación con zod. Íconos de trazo con `lucide-react`.
 
 ## Comandos
 

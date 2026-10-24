@@ -319,6 +319,16 @@ sesión, gasta uso y las reglas importantes se pierden entre el detalle.
   una regla general. Así no se repite el mismo error en otra pantalla.
 - Si algo de la documentación deja de ser cierto en el código, se corrige en el mismo cambio.
 
+## Opiniones del dueño sobre este sitio
+
+- **2026-10-24:** "Metele más hype, algo de 3D; los colores, el fondo me parece muy gris."
+  → Regla: el fondo es casi negro con un toque violeta y el color lo ponen las luces (shader del
+  hero, RGB del teclado, brillos). Nada de grises planos de fondo. El 3D va en lo que se puede
+  tocar: el teclado gira con el scroll y sigue al mouse, y las tarjetas se inclinan hacia el
+  cursor. Todo se queda quieto con "reducir movimiento" o en pantallas táctiles.
+- **2026-10-24:** "Vende mejor la experiencia de Neuralsoft."
+  → Regla: el trabajo actual va primero y en grande, con lo que se aprende en fichas.
+
 ## Fuentes
 
 - W3C, [WCAG 2.2](https://www.w3.org/TR/WCAG22/) · TetraLogical, [Qué hay de nuevo en WCAG 2.2](https://tetralogical.com/blog/2023/10/05/whats-new-wcag-2.2/)

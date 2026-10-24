@@ -16,8 +16,12 @@ export type Job = {
   role: string;
   /** Sin fecha conocida se deja vacío y no se muestra. */
   period?: string;
+  /** El trabajo actual: se muestra como tarjeta destacada. */
+  featured?: boolean;
   summary: string;
   highlights: string[];
+  /** Lo que se aprende en el puesto, en fichas. */
+  learning?: string[];
   tags: string[];
 };
 
@@ -25,18 +29,27 @@ export const EXPERIENCE: Job[] = [
   {
     company: 'Neuralsoft',
     role: 'Implementador ERP · Programa Jóvenes Profesionales',
-    period: 'Actualidad',
+    period: 'Octubre 2026 – Actualidad',
+    featured: true,
     summary:
-      'Entré por el programa de Jóvenes Profesionales para implementar el ERP de la empresa. El plan es pasar después a testing y desarrollo.',
+      'Entré como implementador del ERP por el programa Jóvenes Profesionales: una formación intensiva de punta a punta, desde escribir código hasta entender la infraestructura donde corre. El camino sigue hacia testing y desarrollo.',
     highlights: [
-      'Me estoy capacitando en FastPRG, la plataforma no-code con la que Neuralsoft construye sus productos.',
-      'Después sigo con MyLogic, el producto desarrollado sobre FastPRG.',
+      'Me capacito en FastPRG, la plataforma no-code con la que Neuralsoft construye sus productos, y después en MyLogic, el producto hecho sobre ella.',
     ],
-    tags: ['ERP', 'FastPRG', 'MyLogic', 'No-code'],
+    learning: [
+      'Código y lógica de programación',
+      'Infraestructura y sistemas',
+      'Redes e IPs',
+      'Web services',
+      'FastPRG (no-code)',
+      'Implementación de ERP',
+    ],
+    tags: ['ERP', 'FastPRG', 'MyLogic'],
   },
   {
     company: 'Marstech',
     role: 'Especialista en IA y automatización',
+    period: 'Abril 2026 – Agosto 2026',
     summary:
       'Automaticé procesos del negocio con IA y con la API de Mercado Libre.',
     highlights: [

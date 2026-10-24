@@ -57,6 +57,7 @@ export default function GamerKeyboard({ typed, pressed }: Props) {
 
   return (
     <div className={styles.stage} aria-hidden="true">
+      <div className={styles.floor} />
       <div className={styles.board}>
         {ROWS.map((row, r) => {
           let x = 0;
@@ -83,6 +84,10 @@ export default function GamerKeyboard({ typed, pressed }: Props) {
             </div>
           );
         })}
+        {/* El canto de adelante, con la tira RGB que se va prendiendo a medida que se escribe. */}
+        <div className={styles.edge}>
+          <span className={styles.strip} />
+        </div>
       </div>
     </div>
   );

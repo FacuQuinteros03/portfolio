@@ -4,10 +4,21 @@
   /* Una unidad = el ancho de una tecla común. Se achica por ancho y también por alto, para entrar en notebooks bajas. */
   --u: max(0.9rem, min(calc((100vw - 2.5rem) / 16.2), 3.6rem, calc((100svh - 27.5rem) / 5.4)));
   --gap: calc(var(--u) * 0.12);
-  --depth: calc(var(--u) * 0.14);
-  perspective: calc(var(--u) * 26);
+  --depth: calc(var(--u) * 0.2);
+  position: relative;
+  perspective: calc(var(--u) * 22);
   display: flex;
   justify-content: center;
+}
+
+/* El reflejo de colores que el teclado tira sobre la mesa: crece con lo escrito. */
+.floor {
+  position: absolute;
+  inset: 30% 8% -12%;
+  border-radius: 50%;
+  background: linear-gradient(90deg, hsl(0 95% 55%), hsl(60 95% 55%), hsl(140 95% 50%), hsl(200 95% 55%), hsl(280 95% 60%));
+  filter: blur(calc(var(--u) * 1.4));
+  opacity: calc(0.08 + var(--typed, 1) * 0.42);
 }
 
 .board {
@@ -18,9 +29,42 @@
   border: 1px solid var(--line);
   border-radius: calc(var(--u) * 0.4);
   background: var(--case);
+  position: relative;
   box-shadow: 0 calc(var(--u) * 0.6) calc(var(--u) * 1.4) var(--shadow);
-  transform: rotateX(30deg);
-  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  /* Arranca de costado y levantado; mientras se escribe se acomoda de frente. El mouse lo inclina apenas. */
+  transform:
+    rotateX(calc(58deg - 26deg * var(--scroll, 1) - var(--my, 0) * 5deg))
+    rotateZ(calc(-12deg * (1 - var(--scroll, 1))))
+    rotateY(calc(var(--mx, 0) * 7deg))
+    scale(calc(0.86 + 0.14 * var(--scroll, 1)));
+  transition: transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.edge {
+  position: absolute;
+  top: 100%;
+  left: calc(var(--u) * 0.15);
+  right: calc(var(--u) * 0.15);
+  height: calc(var(--u) * 0.55);
+  border-radius: 0 0 calc(var(--u) * 0.3) calc(var(--u) * 0.3);
+  background: var(--case-edge);
+  transform-origin: 50% 0;
+  transform: rotateX(-90deg);
+}
+
+.strip {
+  position: absolute;
+  top: 42%;
+  left: 4%;
+  right: 4%;
+  height: max(3px, calc(var(--u) * 0.1));
+  border-radius: 999px;
+  background: linear-gradient(90deg, hsl(0 95% 62%), hsl(60 95% 60%), hsl(140 95% 55%), hsl(200 95% 62%), hsl(280 95% 68%));
+  box-shadow: 0 0 calc(var(--u) * 0.3) hsl(200 95% 60% / 0.7);
+  clip-path: inset(0 calc((1 - var(--typed, 1)) * 100%) 0 0);
+  transition: clip-path 220ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .row {
@@ -86,13 +130,19 @@
 }
 
 .key[data-pressed] .cap {
+  background: hsl(var(--hue) 45% 22%);
   transform: translateY(0);
   transition-duration: 70ms;
+}
+
+.key[data-pressed]::before {
+  opacity: 1;
 }
 
 /* ---------- Opción B: teclas sueltas que arman el nombre ---------- */
 
 .caps {
+  perspective: 50rem;
   --c: clamp(1.6rem, min(calc((100vw - 2rem) / 10), calc((100svh - 22rem) / 2.6)), 4.75rem);
   display: flex;
   flex-wrap: wrap;
@@ -103,10 +153,14 @@
 .capWord {
   display: flex;
   gap: calc(var(--c) * 0.12);
+  transform-style: preserve-3d;
+  transform: rotateX(calc(18deg - var(--my, 0) * 10deg)) rotateY(calc(var(--mx, 0) * 14deg));
+  transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .slot {
   position: relative;
+  transform-style: preserve-3d;
   display: grid;
   place-items: center;
   width: var(--c);
@@ -118,7 +172,8 @@
 /* La letra que falta se ve apagada en su lugar: el nombre se lee entero desde el principio. */
 .slot::before {
   content: attr(data-letter);
-  color: var(--ghost);
+  color: transparent;
+  -webkit-text-stroke: 1px var(--line-strong);
   font-size: calc(var(--c) * 0.46);
   font-weight: 700;
 }
@@ -152,24 +207,27 @@
   font-size: calc(var(--c) * 0.46);
   font-weight: 700;
   opacity: 0;
-  transform: translateY(calc(var(--c) * -0.7)) scale(0.95);
+  /* Cae desde arriba y desde adelante, girando, hasta encajar en su hueco. */
+  transform: translate3d(0, calc(var(--c) * -1.4), calc(var(--c) * 2)) rotateX(-70deg) scale(0.95);
   transition:
-    transform 260ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 280ms cubic-bezier(0.23, 1, 0.32, 1),
     opacity 200ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .keycap[data-typed] {
   opacity: 1;
-  transform: translateY(calc(var(--c) * -0.09));
+  transform: translate3d(0, calc(var(--c) * -0.09), calc(var(--c) * 0.25));
 }
 
 .keycap[data-typed][data-pressed] {
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .cap,
-  .keycap {
+  .keycap,
+  .board,
+  .capWord {
     transition-property: opacity, color, border-color;
   }
 }
