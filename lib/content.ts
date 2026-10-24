@@ -20,7 +20,7 @@ export type Job = {
   featured?: boolean;
   summary: string;
   highlights: string[];
-  /** Los módulos y áreas en las que trabaja, en fichas. */
+  /** Lo que está aprendiendo en el puesto, en fichas. */
   scope?: string[];
   tags: string[];
 };
@@ -32,19 +32,18 @@ export const EXPERIENCE: Job[] = [
     period: 'Octubre 2026 – Actualidad',
     featured: true,
     summary:
-      'Estoy construyendo un ERP desde cero con FastPRG, la plataforma de desarrollo de Neuralsoft. Diseño el modelo de datos y programo la lógica de negocio de cada módulo: ventas y facturación, stock y compras, contabilidad y finanzas.',
+      'Estoy aprendiendo FastPRG, la plataforma de Neuralsoft que trae todo lo necesario para crear un sistema desde cero: de la primera validación a publicarlo en un dominio. Entré como implementador del ERP y el camino sigue hacia testing y desarrollo.',
     highlights: [
-      'Conecto el ERP con otros sistemas por web services.',
-      'Preparo la infraestructura donde corre: servidores, redes e IPs.',
-      'Lo implemento en clientes: entiendo cómo trabaja cada empresa y lo llevo al sistema.',
+      'Arranqué por la base: crear entidades y atributos, y escribir reglas de negocio y validaciones.',
+      'Lo que sigue: consumir web services, publicar en un dominio y conectar dispositivos.',
     ],
     scope: [
-      'Ventas y facturación',
-      'Stock y compras',
-      'Contabilidad y finanzas',
-      'Modelo de datos',
-      'Web services',
-      'Infraestructura y redes',
+      'Entidades y atributos',
+      'Reglas de negocio',
+      'Validaciones',
+      'Consumo de web services',
+      'Dominios y publicación',
+      'Conexión de dispositivos',
     ],
     tags: ['FastPRG', 'ERP', 'Web services'],
   },
@@ -151,5 +150,5 @@ export const SKILLS: { name: string; tools: string[] }[] = [
   { name: 'Frontend', tools: ['React', 'Next.js', 'TypeScript', 'Tailwind'] },
   { name: 'IA y datos', tools: ['Python', 'Pandas', 'Scikit-learn', 'NLP'] },
   { name: 'Datos', tools: ['SQL', 'ETL', 'Data Warehouse', 'Power BI'] },
-  { name: 'Sistemas e integraciones', tools: ['FastPRG', 'ERP', 'Web services', 'API de Mercado Libre'] },
+  { name: 'Sistemas e integraciones', tools: ['APIs REST', 'Web services', 'API de Mercado Libre'] },
 ];

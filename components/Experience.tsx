@@ -12,7 +12,7 @@ export default function Experience() {
       className="mx-auto max-w-[1200px] px-4 py-24 md:px-6 md:py-32"
     >
       <SectionHeader id="experiencia-titulo" eyebrow="Experiencia" title="Dónde trabajé">
-        De automatizar procesos con IA a construir un ERP desde cero.
+        De automatizar procesos con IA a aprender a crear sistemas completos con FastPRG.
       </SectionHeader>
 
       {featured.featured && <FeaturedJob job={featured} />}
@@ -62,7 +62,7 @@ function FeaturedJob({ job }: { job: Job }) {
         </div>
         {job.scope && (
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-ink">Módulos y áreas</p>
+            <p className="text-sm font-semibold text-ink">Lo que estoy aprendiendo</p>
             <ul className="mt-3 grid grid-cols-2 gap-2">
               {job.scope.map((item) => (
                 <li

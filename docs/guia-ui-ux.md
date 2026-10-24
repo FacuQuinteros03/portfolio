@@ -327,12 +327,15 @@ sesión, gasta uso y las reglas importantes se pierden entre el detalle.
   tocar: el teclado gira con el scroll y sigue al mouse, y las tarjetas se inclinan hacia el
   cursor. Todo se queda quieto con "reducir movimiento" o en pantallas táctiles.
 - **2026-10-24:** "Vende mejor la experiencia de Neuralsoft."
-  → Regla: el trabajo actual va primero y en grande, con sus módulos en fichas.
+  → Regla: el trabajo actual va primero y en grande, con lo que se aprende en fichas.
 - **2026-10-24:** "No me gusta 'punta a punta', suena muy IA. No enfoques tanto en no-code; código y
   programación ya sabía. No sé si queda bien poner que estamos en capacitación."
   → Regla: los textos cuentan lo que se hace, con datos concretos (módulos, tecnologías), en
-  primera persona y sin muletillas ("de punta a punta", "potenciar", "no solo… sino…"). Nada que
-  reste: ni "capacitación" ni "aprendiendo" cuando se puede decir qué se construye.
+  primera persona y sin muletillas ("de punta a punta", "potenciar", "no solo… sino…").
+- **2026-10-24:** "No estoy construyendo un ERP desde 0, estamos aprendiendo cómo se usa Fast…
+  no mentiría, pero podemos poner que estamos comenzando a aprender sobre todo esto."
+  → Regla: nunca inflar. Se cuenta lo que se hace hoy; lo que se está aprendiendo se dice así, y
+  lo que viene va como "lo que sigue". Vender bien es elegir qué mostrar, no exagerarlo.
 
 ## Fuentes
 
