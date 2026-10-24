@@ -27,5 +27,4 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Formulario de c
 
 ## Estado
 
-- Rediseño en la rama `claude/peaceful-pasteur-d42qc8`. Dos opciones de hero para elegir:
-  `/` (teclado gamer completo) y `/opcion-b` (teclas sueltas). La que no quede se borra.
+- Rediseño en la rama `claude/peaceful-pasteur-d42qc8`, sin pasar a `main`. Hero elegido: teclado gamer 3D.

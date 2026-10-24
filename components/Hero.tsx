@@ -3,15 +3,12 @@
 import { CV_URL, NAME, ROLE } from '@/lib/content';
 import HeroBackground from './HeroBackground';
 import GamerKeyboard from './keyboard/GamerKeyboard';
-import KeycapName from './keyboard/KeycapName';
 import { usePointerTilt } from './keyboard/usePointerTilt';
 import { useScrollTyping } from './keyboard/useScrollTyping';
 
-export type HeroVariant = 'teclado' | 'teclas';
-
 const TEXT = NAME.toUpperCase();
 
-export default function Hero({ variant }: { variant: HeroVariant }) {
+export default function Hero() {
   const { trackRef, count, total, pressed, reduced } = useScrollTyping(TEXT);
   usePointerTilt(trackRef, !reduced);
   const done = count === total;
@@ -35,11 +32,7 @@ export default function Hero({ variant }: { variant: HeroVariant }) {
               Rosario, Argentina · Hoy en <span className="font-semibold text-ink">Neuralsoft</span>
             </p>
 
-            {variant === 'teclado' ? (
-              <TypedName count={count} />
-            ) : (
-              <KeycapName text={TEXT} count={count} pressed={pressed} />
-            )}
+            <TypedName count={count} />
 
             <div className="flex flex-col items-center gap-[clamp(0.75rem,2.4svh,1.25rem)] text-center">
               <p className="max-w-[34rem] text-lg text-ink-2 md:text-xl">
@@ -56,7 +49,7 @@ export default function Hero({ variant }: { variant: HeroVariant }) {
               </div>
             </div>
 
-            {variant === 'teclado' && <GamerKeyboard typed={TEXT.slice(0, count)} pressed={pressed} />}
+            <GamerKeyboard typed={TEXT.slice(0, count)} pressed={pressed} />
 
             {!reduced && (
               <p

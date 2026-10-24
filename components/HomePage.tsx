@@ -2,11 +2,11 @@ import About from './About';
 import Contact from './Contact';
 import Experience from './Experience';
 import Footer from './Footer';
-import Hero, { type HeroVariant } from './Hero';
+import Hero from './Hero';
 import NavBar from './NavBar';
 import Projects from './Projects';
 
-export default function HomePage({ variant }: { variant: HeroVariant }) {
+export default function HomePage() {
   return (
     <>
       <a
@@ -17,7 +17,7 @@ export default function HomePage({ variant }: { variant: HeroVariant }) {
       </a>
       <NavBar />
       <main>
-        <Hero variant={variant} />
+        <Hero />
         <Experience />
         <Projects />
         <About />

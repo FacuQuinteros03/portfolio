@@ -8,6 +8,6 @@
       Sin eso el formulario muestra "No se pudo enviar" y ofrece el mail directo.
 - [ ] **Años:** se puso Marstech abril–agosto 2026 y Neuralsoft desde octubre 2026. Confirmar el año.
 - [ ] **CV:** `public/Quinteros_Facundo_CV.pdf` no tiene Marstech ni Neuralsoft. Subir uno nuevo con el mismo nombre.
-- [ ] **Elegir hero:** `/` o `/opcion-b`.
+- [x] **Hero:** quedó el teclado gamer (opción A). La B se borró.
 - [ ] Se sacó el chat con Gemini (`api/chat.js`), que estaba apagado. Si se quiere de vuelta, va como
       route handler en `app/api/chat/route.ts`; la variable `GEMINI_API_KEY` en Vercel ya no se usa.

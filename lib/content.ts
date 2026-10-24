@@ -20,8 +20,8 @@ export type Job = {
   featured?: boolean;
   summary: string;
   highlights: string[];
-  /** Lo que se aprende en el puesto, en fichas. */
-  learning?: string[];
+  /** Los módulos y áreas en las que trabaja, en fichas. */
+  scope?: string[];
   tags: string[];
 };
 
@@ -32,19 +32,21 @@ export const EXPERIENCE: Job[] = [
     period: 'Octubre 2026 – Actualidad',
     featured: true,
     summary:
-      'Entré como implementador del ERP por el programa Jóvenes Profesionales: una formación intensiva de punta a punta, desde escribir código hasta entender la infraestructura donde corre. El camino sigue hacia testing y desarrollo.',
+      'Estoy construyendo un ERP desde cero con FastPRG, la plataforma de desarrollo de Neuralsoft. Diseño el modelo de datos y programo la lógica de negocio de cada módulo: ventas y facturación, stock y compras, contabilidad y finanzas.',
     highlights: [
-      'Me capacito en FastPRG, la plataforma no-code con la que Neuralsoft construye sus productos, y después en MyLogic, el producto hecho sobre ella.',
+      'Conecto el ERP con otros sistemas por web services.',
+      'Preparo la infraestructura donde corre: servidores, redes e IPs.',
+      'Lo implemento en clientes: entiendo cómo trabaja cada empresa y lo llevo al sistema.',
     ],
-    learning: [
-      'Código y lógica de programación',
-      'Infraestructura y sistemas',
-      'Redes e IPs',
+    scope: [
+      'Ventas y facturación',
+      'Stock y compras',
+      'Contabilidad y finanzas',
+      'Modelo de datos',
       'Web services',
-      'FastPRG (no-code)',
-      'Implementación de ERP',
+      'Infraestructura y redes',
     ],
-    tags: ['ERP', 'FastPRG', 'MyLogic'],
+    tags: ['FastPRG', 'ERP', 'Web services'],
   },
   {
     company: 'Marstech',
@@ -148,6 +150,6 @@ export const PROJECTS: Project[] = [
 export const SKILLS: { name: string; tools: string[] }[] = [
   { name: 'Frontend', tools: ['React', 'Next.js', 'TypeScript', 'Tailwind'] },
   { name: 'IA y datos', tools: ['Python', 'Pandas', 'Scikit-learn', 'NLP'] },
-  { name: 'Ingeniería de datos', tools: ['SQL', 'ETL', 'Data Warehouse'] },
-  { name: 'Automatización', tools: ['APIs REST', 'API de Mercado Libre', 'Power BI'] },
+  { name: 'Datos', tools: ['SQL', 'ETL', 'Data Warehouse', 'Power BI'] },
+  { name: 'Sistemas e integraciones', tools: ['FastPRG', 'ERP', 'Web services', 'API de Mercado Libre'] },
 ];
