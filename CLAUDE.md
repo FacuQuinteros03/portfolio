@@ -10,6 +10,8 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Formulario de c
 ## Comandos
 
 - `npm run dev` · `npm run build` · `npm run lint` · `npm run typecheck`
+- `npm run cv`: arma `public/Quinteros_Facundo_CV.pdf` desde `cv/cv.html`. Si cambia la experiencia en
+  `lib/content.ts`, se cambia también en el CV.
 
 ## Reglas que no se rompen
 
