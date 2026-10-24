@@ -1,0 +1,146 @@
+@import 'tailwindcss';
+
+/* Todo color sale de acá. Modo oscuro en gris carbón cálido. */
+:root {
+  --surface: #1b1917;
+  --surface-2: #232120;
+  --surface-3: #2d2a27;
+  --line: #3a3632;
+  --line-strong: #7a726a;
+  --ink: #f3eee7;
+  --ink-2: #c3bab0;
+  --ink-3: #a1978c;
+  --ghost: #4a4540;
+  --accent: #c8f26d;
+  --accent-hover: #d6f78f;
+  --on-accent: #1b1917;
+  --danger: #ff9c8a;
+  --success: #a8e88a;
+  --shadow: rgb(0 0 0 / 0.45);
+
+  /* Teclado */
+  --case: #161413;
+  --key-top: #2a2725;
+  --key-side: #0f0e0d;
+  --key-edge: #3b3733;
+  --key-legend: #8d8479;
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* El encabezado fijo nunca tapa la sección a la que se salta ni el foco. */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding-inline: 1.5rem;
+    font-weight: 600;
+    transition:
+      transform 160ms var(--ease-out-strong),
+      background-color 160ms var(--ease-out-strong),
+      border-color 160ms var(--ease-out-strong);
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--line-strong);
+    color: var(--ink);
+  }
+
+  .btn:disabled {
+    background: var(--surface-3);
+    color: var(--ink-3);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .link-underline {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.375rem;
+    text-decoration: underline;
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 0.3em;
+    transition: text-decoration-color 160ms var(--ease-out-strong);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--ink-2);
+    }
+
+    .link-underline:hover {
+      text-decoration-color: var(--accent);
+    }
+  }
+}
