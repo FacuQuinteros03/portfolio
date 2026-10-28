@@ -1,18 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { z } from 'zod';
+import { contactSchema as schema, type ContactInput } from '@/lib/contact';
 import { EMAIL, LINKS } from '@/lib/content';
 import SectionHeader from './SectionHeader';
 import CopyButton from './CopyButton';
 
-const schema = z.object({
-  name: z.string().trim().min(2, 'Escribí tu nombre.'),
-  email: z.email('Revisá el mail: le falta algo (por ejemplo, la @).'),
-  message: z.string().trim().min(10, 'Contame un poco más (al menos 10 letras).'),
-});
-
-type Field = keyof z.infer<typeof schema>;
+type Field = keyof ContactInput;
 type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 const EMPTY = { name: '', email: '', message: '' };
@@ -22,6 +16,7 @@ export default function Contact() {
   const [errors, setErrors] = useState<Partial<Record<Field, string>>>({});
   const [status, setStatus] = useState<Status>('idle');
   const [sentTo, setSentTo] = useState('');
+  const [honeypot, setHoneypot] = useState('');
 
   const check = (field: Field, value: string) => {
     const result = schema.shape[field].safeParse(value);
@@ -50,18 +45,13 @@ export default function Contact() {
 
     setStatus('sending');
     try {
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-      if (!serviceId || !templateId || !publicKey) throw new Error('EmailJS sin configurar');
-
-      const emailjs = (await import('@emailjs/browser')).default;
-      await emailjs.send(
-        serviceId,
-        templateId,
-        { from_name: result.data.name, from_email: result.data.email, message: result.data.message },
-        { publicKey },
-      );
+      // El mail lo manda el servidor: en la página no queda ningún dato del servicio.
+      const response = await fetch('/api/contacto', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...result.data, website: honeypot }),
+      });
+      if (!response.ok) throw new Error(`El servidor respondió ${response.status}`);
       setSentTo(result.data.email);
       setForm(EMPTY);
       setStatus('sent');
@@ -109,6 +99,18 @@ export default function Contact() {
         </div>
 
         <form noValidate onSubmit={onSubmit} className="min-w-0 max-w-[36rem] space-y-6">
+          {/* Campo trampa para bots: no se ve ni se puede enfocar. */}
+          <div aria-hidden="true" className="absolute -left-[9999px] size-px overflow-hidden">
+            <label htmlFor="contacto-website">No completar</label>
+            <input
+              id="contacto-website"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+            />
+          </div>
           <div>
             <label htmlFor="contacto-name" className="font-semibold">
               Nombre

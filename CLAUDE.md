@@ -5,7 +5,7 @@ Sitio personal publicado en https://facundoquinteros.vercel.app (Vercel, rama `m
 ## Base
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Hanken Grotesk (`next/font`).
-Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Formulario de contacto con EmailJS (`@emailjs/browser`) y validación con zod. Íconos de trazo con `lucide-react`.
+Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Formulario de contacto: el navegador manda a `app/api/contacto`, que valida con zod y llama a la API de EmailJS desde el servidor (`lib/send-email.ts`). Íconos de trazo con `lucide-react`.
 
 ## Comandos
 
@@ -19,6 +19,8 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Formulario de c
 - Todo color sale de un token de `app/globals.css`. Nada de hex sueltos en los componentes.
 - El nombre del hero se lee entero desde el principio (letras apagadas); el teclado es decorado (`aria-hidden`).
 - Con "reducir movimiento" no hay tramo de scroll: el nombre aparece completo.
+- Ningún dato de servicios ni variable de entorno llega al navegador: nada de `NEXT_PUBLIC_` para claves o IDs.
+  Las respuestas al visitante nunca nombran el servicio ni la variable que falta.
 
 ## Antes de… → leer…
 

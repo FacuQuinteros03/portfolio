@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* Todo color sale de acá. Modo oscuro en gris carbón cálido. */
+/* Todo color sale de acá. */
 :root {
   /* Casi negro con un toque violeta: el color lo ponen las luces, no el fondo. */
   --surface: #0c0b0f;
