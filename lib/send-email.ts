@@ -9,7 +9,21 @@ function readEnv(name: string) {
   return process.env[`EMAILJS_${name}`] || process.env[`NEXT_PUBLIC_EMAILJS_${name}`];
 }
 
-export type SendResult = 'sent' | 'not-configured' | 'failed';
+/**
+ * Si falla, un código corto para diagnosticar desde una captura sin mostrarle al visitante qué servicio se usa:
+ * C1 faltan variables · C3 no se pudo conectar · E1 envíos desde servidor apagados · E2 falta o está mal la
+ * private key · E3 public key · E4 service ID · E5 template ID · E9-<status> otro rechazo.
+ */
+export type SendResult = { ok: true } | { ok: false; code: string };
+
+function classify(status: number, text: string) {
+  if (/non-browser/i.test(text)) return 'E1';
+  if (/private key|accessToken|strict mode/i.test(text)) return 'E2';
+  if (/public key|user id|user_id/i.test(text)) return 'E3';
+  if (/service/i.test(text)) return 'E4';
+  if (/template/i.test(text)) return 'E5';
+  return `E9-${status}`;
+}
 
 export async function sendContactEmail(data: ContactInput): Promise<SendResult> {
   const serviceId = readEnv('SERVICE_ID');
@@ -19,25 +33,32 @@ export async function sendContactEmail(data: ContactInput): Promise<SendResult> 
 
   if (!serviceId || !templateId || !publicKey) {
     console.error('[contacto] Faltan variables de EmailJS en el servidor.');
-    return 'not-configured';
+    return { ok: false, code: 'C1' };
   }
 
-  const response = await fetch(EMAILJS_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      service_id: serviceId,
-      template_id: templateId,
-      user_id: publicKey,
-      ...(privateKey ? { accessToken: privateKey } : {}),
-      template_params: { from_name: data.name, from_email: data.email, message: data.message },
-    }),
-    cache: 'no-store',
-  });
+  let response: Response;
+  try {
+    response = await fetch(EMAILJS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        service_id: serviceId,
+        template_id: templateId,
+        user_id: publicKey,
+        ...(privateKey ? { accessToken: privateKey } : {}),
+        template_params: { from_name: data.name, from_email: data.email, message: data.message },
+      }),
+      cache: 'no-store',
+    });
+  } catch (err) {
+    console.error('[contacto] No se pudo llamar a EmailJS.', err);
+    return { ok: false, code: 'C3' };
+  }
 
   if (!response.ok) {
-    console.error(`[contacto] EmailJS respondió ${response.status}: ${await response.text()}`);
-    return 'failed';
+    const text = await response.text();
+    console.error(`[contacto] EmailJS respondió ${response.status}: ${text}`);
+    return { ok: false, code: classify(response.status, text) };
   }
-  return 'sent';
+  return { ok: true };
 }

@@ -17,6 +17,7 @@ export default function Contact() {
   const [status, setStatus] = useState<Status>('idle');
   const [sentTo, setSentTo] = useState('');
   const [honeypot, setHoneypot] = useState('');
+  const [errorCode, setErrorCode] = useState('');
 
   const check = (field: Field, value: string) => {
     const result = schema.shape[field].safeParse(value);
@@ -44,6 +45,7 @@ export default function Contact() {
     }
 
     setStatus('sending');
+    setErrorCode('');
     try {
       // El mail lo manda el servidor: en la página no queda ningún dato del servicio.
       const response = await fetch('/api/contacto', {
@@ -51,7 +53,11 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...result.data, website: honeypot }),
       });
-      if (!response.ok) throw new Error(`El servidor respondió ${response.status}`);
+      if (!response.ok) {
+        const data = (await response.json().catch(() => ({}))) as { code?: string };
+        setErrorCode(data.code ?? String(response.status));
+        throw new Error(`El servidor respondió ${response.status}`);
+      }
       setSentTo(result.data.email);
       setForm(EMPTY);
       setStatus('sent');
@@ -195,6 +201,7 @@ export default function Contact() {
                 {EMAIL}
               </a>
               , lo que escribiste sigue acá.
+              {errorCode && <span className="mt-1 block text-sm text-ink-3">Código: {errorCode}</span>}
             </p>
           )}
         </form>

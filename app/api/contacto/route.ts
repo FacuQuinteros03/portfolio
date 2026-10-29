@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return Response.json({ ok: false }, { status: 400 });
+    return Response.json({ ok: false, code: 'D1' }, { status: 400 });
   }
 
   // Campo trampa: es invisible para las personas, así que si viene lleno lo mandó un bot. Se lo trata como enviado.
@@ -16,13 +16,9 @@ export async function POST(request: Request) {
   }
 
   const parsed = contactSchema.safeParse(body);
-  if (!parsed.success) return Response.json({ ok: false }, { status: 400 });
+  if (!parsed.success) return Response.json({ ok: false, code: 'D1' }, { status: 400 });
 
-  try {
-    const result = await sendContactEmail(parsed.data);
-    if (result === 'sent') return Response.json({ ok: true });
-  } catch (err) {
-    console.error('[contacto] No se pudo llamar a EmailJS.', err);
-  }
-  return Response.json({ ok: false }, { status: 502 });
+  const result = await sendContactEmail(parsed.data);
+  if (result.ok) return Response.json({ ok: true });
+  return Response.json({ ok: false, code: result.code }, { status: 502 });
 }
