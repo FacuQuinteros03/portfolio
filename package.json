@@ -1,37 +1,33 @@
 {
   "name": "portfolio",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "typecheck": "tsc --noEmit",
+    "cv": "node scripts/build-cv.mjs"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@google/genai": "^1.24.0",
-    "@mui/material": "^7.3.2",
-    "emailjs-com": "^3.2.0",
-    "framer-motion": "^12.38.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-icons": "^5.5.0"
+    "@paper-design/shaders-react": "0.0.81",
+    "lucide-react": "1.61.0",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "server-only": "0.0.1",
+    "zod": "4.6.7"
   },
   "devDependencies": {
-    "@eslint/js": "^9.33.0",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
-    "@vitejs/plugin-react": "^5.0.0",
-    "autoprefixer": "^10.4.21",
-    "eslint": "^9.33.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "globals": "^16.3.0",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.13",
-    "vite": "^7.1.2"
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "22.20.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.3",
+    "playwright-core": "1.63.0",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.9.3"
   }
 }
