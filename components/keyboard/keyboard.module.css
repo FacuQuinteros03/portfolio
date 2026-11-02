@@ -16,7 +16,7 @@
   border-radius: 50%;
   background: linear-gradient(90deg, hsl(0 95% 55%), hsl(60 95% 55%), hsl(140 95% 50%), hsl(200 95% 55%), hsl(280 95% 60%));
   filter: blur(calc(var(--u) * 1.4));
-  opacity: calc(0.08 + var(--typed, 1) * 0.42);
+  opacity: calc(0.05 + var(--typed, 1) * 0.25);
 }
 
 .board {
@@ -92,7 +92,7 @@
 }
 
 .key[data-lit]::before {
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .cap {
@@ -123,12 +123,13 @@
 }
 
 .key[data-lit] .cap {
-  border-color: hsl(var(--hue) 80% 58% / 0.65);
-  color: hsl(var(--hue) 95% 74%);
+  border-color: hsl(var(--hue) 80% 55% / 0.8);
+  /* Sobre la tecla blanca la letra va oscura para que se lea. */
+  color: hsl(var(--hue) 85% 38%);
 }
 
 .key[data-pressed] .cap {
-  background: hsl(var(--hue) 45% 22%);
+  background: hsl(var(--hue) 90% 93%);
   transform: translateY(0);
   transition-duration: 70ms;
 }

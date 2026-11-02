@@ -337,6 +337,10 @@ sesión, gasta uso y las reglas importantes se pierden entre el detalle.
   → Regla: nunca inflar. Se cuenta lo que se hace hoy; lo que se está aprendiendo se dice así, y
   lo que viene va como "lo que sigue". Vender bien es elegir qué mostrar, no exagerarlo.
 
+- **2026-11-02:** "Capaz cambiaría el teclado a blanco para probar, y el fondo está como muy flashero."
+  → Regla: el fondo acompaña, no compite: el shader va casi negro, lento y con poco color. El
+  protagonista es el teclado (ahora blanco) y sus luces RGB.
+
 ## Fuentes
 
 - W3C, [WCAG 2.2](https://www.w3.org/TR/WCAG22/) · TetraLogical, [Qué hay de nuevo en WCAG 2.2](https://tetralogical.com/blog/2023/10/05/whats-new-wcag-2.2/)

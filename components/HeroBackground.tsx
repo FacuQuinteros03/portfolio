@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { MeshGradient } from '@paper-design/shaders-react';
 
-// Luces del fondo del hero. Muy oscuras a propósito: el texto blanco tiene que leerse encima.
-const COLORS = ['#0c0b0f', '#2a1060', '#0c0b0f', '#0a3350', '#3d0d3a', '#0c0b0f', '#1c3a0a'];
+// Luces del fondo del hero: apenas un tinte sobre el negro, para que acompañe sin llamar la atención.
+const COLORS = ['#0c0b0f', '#1a1430', '#0c0b0f', '#0e1c2a', '#0c0b0f', '#1c1020', '#0c0b0f'];
 
 export default function HeroBackground({ reduced }: { reduced: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -24,11 +24,11 @@ export default function HeroBackground({ reduced }: { reduced: boolean }) {
       <MeshGradient
         className="absolute inset-0 size-full"
         colors={COLORS}
-        distortion={0.9}
-        swirl={0.45}
+        distortion={0.5}
+        swirl={0.15}
         grainMixer={0.12}
         grainOverlay={0.12}
-        speed={reduced || !visible ? 0 : 0.22}
+        speed={reduced || !visible ? 0 : 0.06}
         maxPixelCount={1600 * 1000}
       />
       {/* Se funde con la página abajo y oscurece apenas el centro, donde va el nombre. */}

@@ -23,13 +23,13 @@
   --success: #a8e88a;
   --shadow: #000000a6;
 
-  /* Teclado */
-  --case: #111016;
-  --case-edge: #08070b;
-  --key-top: #1d1b23;
-  --key-side: #050407;
-  --key-edge: #322e3a;
-  --key-legend: #8a8296;
+  /* Teclado blanco */
+  --case: #e7e4ec;
+  --case-edge: #bdb8c6;
+  --key-top: #faf9fc;
+  --key-side: #b9b3c3;
+  --key-edge: #d6d1de;
+  --key-legend: #5f5869;
 
   color-scheme: dark;
 }
