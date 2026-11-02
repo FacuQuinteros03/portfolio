@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <title>Facundo Quinteros · CV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* CV en A4. Se genera con: npm run cv */
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      :root {
+        --ink: #16141a;
+        --ink-2: #4a4552;
+        --ink-3: #6e6878;
+        --line: #dcd8e2;
+        --side: #f4f2f7;
+        --accent: #5a3fd0;
+        --featured-line: #cfc6f3;
+        --featured-bg: #f6f3ff;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 210mm;
+        height: 297mm;
+      }
+
+      body {
+        font-family: 'Hanken Grotesk', system-ui, sans-serif;
+        color: var(--ink);
+        font-size: 9.6pt;
+        line-height: 1.45;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        display: grid;
+        grid-template-columns: 70mm 1fr;
+        height: 297mm;
+      }
+
+      /* ---------- Columna izquierda ---------- */
+
+      aside {
+        background: var(--side);
+        padding: 12mm 8mm 10mm 10mm;
+        display: flex;
+        flex-direction: column;
+        gap: 5mm;
+      }
+
+      .photo {
+        width: 32mm;
+        height: 32mm;
+        border-radius: 50%;
+        object-fit: cover;
+        align-self: center;
+      }
+
+      h2 {
+        font-size: 8pt;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 2.2mm;
+      }
+
+      aside p,
+      aside li {
+        color: var(--ink-2);
+      }
+
+      aside ul {
+        list-style: none;
+        display: grid;
+        gap: 1mm;
+      }
+
+      .contact li {
+        font-size: 8.8pt;
+        overflow-wrap: anywhere;
+      }
+
+      .item + .item {
+        margin-top: 2.6mm;
+      }
+
+      .item strong {
+        display: block;
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      .meta {
+        color: var(--ink-3);
+        font-size: 8.8pt;
+      }
+
+      .skills dt {
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      .skills dd {
+        color: var(--ink-2);
+        margin-bottom: 1.8mm;
+      }
+
+      /* ---------- Columna derecha ---------- */
+
+      main {
+        padding: 14mm 12mm 12mm 10mm;
+        display: flex;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 30pt;
+        line-height: 1;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .role {
+        margin-top: 2.5mm;
+        font-size: 11pt;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .profile {
+        margin-top: 4mm;
+        color: var(--ink-2);
+        font-size: 10pt;
+        max-width: 118mm;
+      }
+
+      .experience {
+        margin-top: 7mm;
+      }
+
+      .job {
+        padding: 3.4mm 0;
+        border-top: 0.3mm solid var(--line);
+      }
+
+      .job:first-of-type {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .job-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 4mm;
+      }
+
+      .job h3 {
+        font-size: 10.6pt;
+        font-weight: 700;
+      }
+
+      .job .when {
+        flex: none;
+        color: var(--ink-3);
+        font-size: 8.8pt;
+      }
+
+      .job .where {
+        font-weight: 600;
+        color: var(--ink-2);
+      }
+
+      .job p,
+      .job li {
+        color: var(--ink-2);
+      }
+
+      .job p {
+        margin-top: 1.2mm;
+      }
+
+      .job ul {
+        margin-top: 1.2mm;
+        padding-left: 4mm;
+        display: grid;
+        gap: 0.6mm;
+      }
+
+      .job li::marker {
+        color: var(--accent);
+      }
+
+      .featured {
+        margin: 0 -4mm 1mm;
+        padding: 4mm;
+        border: 0.3mm solid var(--featured-line);
+        border-radius: 3mm;
+        background: var(--featured-bg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <aside>
+        <img class="photo" src="foto.jpg" alt="Facundo Quinteros" />
+
+        <section>
+          <h2>Contacto</h2>
+          <ul class="contact">
+            <li><a href="mailto:facundoquinteros16@hotmail.com">facundoquinteros16@hotmail.com</a></li>
+            <li>Tel: 341-617-8059</li>
+            <li>Rosario, Santa Fe</li>
+            <li><a href="https://facundoquinteros.vercel.app">facundoquinteros.vercel.app</a></li>
+            <li><a href="https://www.linkedin.com/in/facundo-quinteros-125051232/">LinkedIn: Facundo Quinteros</a></li>
+            <li><a href="https://github.com/FacuQuinteros03">github.com/FacuQuinteros03</a></li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Educación</h2>
+          <div class="item">
+            <strong>Tecnicatura en Inteligencia Artificial</strong>
+            <span class="meta">FCEIA · UNR · 2024 – Actualidad</span>
+            <p>
+              Programación, bases de datos, ETL y análisis de datos. Hoy: aprendizaje automático, minería de
+              datos, NLP y procesamiento de imágenes.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Cursos e idiomas</h2>
+          <div class="item">
+            <strong>Inglés</strong>
+            <span class="meta">Avanzado</span>
+          </div>
+          <div class="item">
+            <strong>Programación fullstack</strong>
+            <span class="meta">Egg Cooperation</span>
+            <p>Desarrollo web, trabajo en equipo y metodologías ágiles.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Skills</h2>
+          <dl class="skills">
+            <dt>Frontend</dt>
+            <dd>React, Next.js, JavaScript, TypeScript, Tailwind, Git</dd>
+            <dt>IA y datos</dt>
+            <dd>Python, Pandas, Scikit-learn, NLP, SQL, ETL, Data Warehouse, Power BI</dd>
+            <dt>Integraciones</dt>
+            <dd>APIs REST, web services, API de Mercado Libre, automatización</dd>
+          </dl>
+        </section>
+      </aside>
+
+      <main>
+        <h1>Facundo<br />Quinteros</h1>
+        <p class="role">Desarrollador fullstack · IA y datos</p>
+        <p class="profile">
+          Estudiante avanzado de Inteligencia Artificial. Hago sitios y herramientas que juntan software, datos e
+          IA. Me destaco por el compromiso, la iniciativa y las ganas de seguir aprendiendo.
+        </p>
+
+        <section class="experience">
+          <h2>Experiencia laboral</h2>
+
+          <article class="job featured">
+            <div class="job-head">
+              <h3>Implementador ERP · Programa Jóvenes Profesionales</h3>
+              <span class="when">Oct 2026 – Actualidad</span>
+            </div>
+            <span class="where">Neuralsoft</span>
+            <p>
+              Aprendo FastPRG, la plataforma de Neuralsoft para crear sistemas desde cero, con proyección a
+              testing y desarrollo.
+            </p>
+            <ul>
+              <li>Entidades y atributos, reglas de negocio y validaciones.</li>
+              <li>Próximos pasos: consumo de web services, publicación en dominios y conexión de dispositivos.</li>
+            </ul>
+          </article>
+
+          <article class="job">
+            <div class="job-head">
+              <h3>Especialista en IA y automatización</h3>
+              <span class="when">Abr 2026 – Ago 2026</span>
+            </div>
+            <span class="where">Marstech</span>
+            <ul>
+              <li>Automatización de procesos del negocio con IA.</li>
+              <li>Desarrollos sobre la API de Mercado Libre.</li>
+              <li>Reportes que se generan solos a partir de tareas programadas.</li>
+            </ul>
+          </article>
+
+          <article class="job">
+            <div class="job-head">
+              <h3>Docente de Inteligencia Artificial (práctica académica)</h3>
+              <span class="when">Sep 2025 – Dic 2025</span>
+            </div>
+            <span class="where">FCEIA · UNR</span>
+            <p>
+              Enseñé inteligencia artificial a público no técnico: qué es, cómo se usa y cómo cambia el trabajo.
+            </p>
+          </article>
+
+          <article class="job">
+            <div class="job-head">
+              <h3>Desarrollador frontend (React)</h3>
+              <span class="when">May 2025 – Ago 2025</span>
+            </div>
+            <span class="where">Maki San Tech</span>
+            <p>Interfaces y funciones de un sistema de turnos para profesionales de la salud, pensado para crecer.</p>
+          </article>
+
+          <article class="job">
+            <div class="job-head">
+              <h3>Desarrollador web freelance</h3>
+              <span class="when">2024 – Actualidad</span>
+            </div>
+            <span class="where">Clientes propios</span>
+            <p>
+              Sitios a medida para distintos clientes, incluidos proyectos institucionales: desde relevar lo que
+              necesitan hasta publicarlo. Por ejemplo, el sitio del Estudio Jurídico Menicocci, con blog
+              autogestionable en Sanity.
+            </p>
+          </article>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

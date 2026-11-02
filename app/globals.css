@@ -1,0 +1,178 @@
+@import 'tailwindcss';
+
+/* Todo color sale de acá. */
+:root {
+  /* Casi negro con un toque violeta: el color lo ponen las luces, no el fondo. */
+  --surface: #0c0b0f;
+  --surface-2: #15131a;
+  --surface-3: #1f1c26;
+  --line: #2a2631;
+  --line-strong: #6f6879;
+  --ink: #f6f3fa;
+  --ink-2: #c6bfd0;
+  --ink-3: #a098ab;
+  --ghost: #2f2b36;
+  --dot: #ffffff0c;
+  --glare-color: #ffffff14;
+  --accent: #c8f26d;
+  --accent-hover: #d9f894;
+  --accent-glow: #c8f26d55;
+  --on-accent: #0c0b0f;
+  --violet: #a98bff;
+  --danger: #ff9c8a;
+  --success: #a8e88a;
+  --shadow: #000000a6;
+
+  /* Teclado */
+  --case: #111016;
+  --case-edge: #08070b;
+  --key-top: #1d1b23;
+  --key-side: #050407;
+  --key-edge: #322e3a;
+  --key-legend: #8a8296;
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-violet: var(--violet);
+  --color-on-accent: var(--on-accent);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--surface);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* El encabezado fijo nunca tapa la sección a la que se salta ni el foco. */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding-inline: 1.5rem;
+    font-weight: 600;
+    transition:
+      transform 160ms var(--ease-out-strong),
+      background-color 160ms var(--ease-out-strong),
+      border-color 160ms var(--ease-out-strong);
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--on-accent);
+    box-shadow: 0 0 2rem var(--accent-glow);
+  }
+
+  .btn-secondary {
+    border: 1px solid var(--line-strong);
+    background: color-mix(in srgb, var(--surface) 60%, transparent);
+    color: var(--ink);
+    backdrop-filter: blur(8px);
+  }
+
+  .btn:disabled {
+    background: var(--surface-3);
+    color: var(--ink-3);
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .link-underline {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.375rem;
+    text-decoration: underline;
+    text-decoration-color: var(--line-strong);
+    text-underline-offset: 0.3em;
+    transition: text-decoration-color 160ms var(--ease-out-strong);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--ink-2);
+    }
+
+    .link-underline:hover {
+      text-decoration-color: var(--accent);
+    }
+  }
+
+  /* Tarjeta que se inclina hacia el mouse. Las variables las mueve TiltCard. */
+  .tilt {
+    position: relative;
+    transform: perspective(60rem) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition:
+      transform 300ms var(--ease-out-strong),
+      border-color 300ms var(--ease-out-strong);
+  }
+
+  .tilt::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(28rem circle at var(--gx, 50%) var(--gy, 0%), var(--glare-color), transparent 60%);
+    opacity: var(--glare, 0);
+    pointer-events: none;
+    transition: opacity 300ms var(--ease-out-strong);
+  }
+}
