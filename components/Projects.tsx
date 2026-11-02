@@ -11,7 +11,7 @@ export default function Projects() {
       aria-labelledby="proyectos-titulo"
       className="mx-auto max-w-[1200px] px-4 py-24 md:px-6 md:py-32"
     >
-      <SectionHeader id="proyectos-titulo" eyebrow="Proyectos" title="Cosas que hice">
+      <SectionHeader id="proyectos-titulo" eyebrow="Proyectos" title="Laborales y personales">
         Modelos de IA, visión por computadora y sitios en producción.
       </SectionHeader>
 
