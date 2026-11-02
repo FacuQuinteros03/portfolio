@@ -14,7 +14,7 @@
   position: absolute;
   inset: 30% 8% -12%;
   border-radius: 50%;
-  background: linear-gradient(90deg, hsl(0 95% 55%), hsl(60 95% 55%), hsl(140 95% 50%), hsl(200 95% 55%), hsl(280 95% 60%));
+  background: linear-gradient(90deg, hsl(190 95% 55%), hsl(206 95% 58%), hsl(222 95% 60%));
   filter: blur(calc(var(--u) * 1.4));
   opacity: calc(0.05 + var(--typed, 1) * 0.25);
 }
@@ -59,8 +59,8 @@
   right: 4%;
   height: max(3px, calc(var(--u) * 0.1));
   border-radius: 999px;
-  background: linear-gradient(90deg, hsl(0 95% 62%), hsl(60 95% 60%), hsl(140 95% 55%), hsl(200 95% 62%), hsl(280 95% 68%));
-  box-shadow: 0 0 calc(var(--u) * 0.3) hsl(200 95% 60% / 0.7);
+  background: linear-gradient(90deg, hsl(190 95% 62%), hsl(206 95% 62%), hsl(222 95% 66%));
+  box-shadow: 0 0 calc(var(--u) * 0.3) hsl(206 95% 60% / 0.7);
   clip-path: inset(0 calc((1 - var(--typed, 1)) * 100%) 0 0);
   transition: clip-path 220ms cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -138,7 +138,45 @@
   opacity: 1;
 }
 
+/* Con el nombre completo, una ola de luz recorre el teclado de izquierda a derecha y el teclado flota apenas:
+   así no queda quieto. Solo opacidad y transform. */
+.stage[data-done] .key::before {
+  animation: wave 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--pos) * 1.2s);
+}
+
+.stage[data-done] .board {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%,
+  45%,
+  100% {
+    opacity: 0.55;
+  }
+  15% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 calc(var(--u) * -0.18);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .stage[data-done] .key::before,
+  .stage[data-done] .board {
+    animation: none;
+  }
+
+
   .cap,
   .board {
     transition-property: opacity, color, border-color;

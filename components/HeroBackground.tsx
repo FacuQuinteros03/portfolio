@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { MeshGradient } from '@paper-design/shaders-react';
 
 // Luces del fondo del hero: apenas un tinte sobre el negro, para que acompañe sin llamar la atención.
-const COLORS = ['#0c0b0f', '#1a1430', '#0c0b0f', '#0e1c2a', '#0c0b0f', '#1c1020', '#0c0b0f'];
+const COLORS = ['#0a0b10', '#0a1d36', '#0a0b10', '#06283a', '#0a0b10', '#0f1a3a', '#0a0b10'];
 
 export default function HeroBackground({ reduced }: { reduced: boolean }) {
   const ref = useRef<HTMLDivElement>(null);

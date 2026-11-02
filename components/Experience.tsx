@@ -47,13 +47,13 @@ function FeaturedJob({ job }: { job: Job }) {
     <TiltCard
       as="article"
       strength={0.5}
-      className="overflow-hidden rounded-3xl border border-violet/40 bg-surface-2 p-6 shadow-[0_0_4rem_color-mix(in_srgb,var(--violet)_18%,transparent)] md:p-10"
+      className="overflow-hidden rounded-3xl border border-accent-2/40 bg-surface-2 p-6 shadow-[0_0_4rem_color-mix(in_srgb,var(--accent-2)_18%,transparent)] md:p-10"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
         <p className="text-3xl font-bold tracking-tight md:text-4xl">{job.company}</p>
         <p className="text-ink-2">{job.period}</p>
       </div>
-      <h3 className="mt-2 text-lg font-semibold text-violet md:text-xl">{job.role}</h3>
+      <h3 className="mt-2 text-lg font-semibold text-accent-2 md:text-xl">{job.role}</h3>
 
       <div className="mt-6 grid gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-12">
         <div className="min-w-0">

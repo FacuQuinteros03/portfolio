@@ -37,7 +37,7 @@ export default function Projects() {
               />
             </div>
             <div className="flex min-w-0 flex-1 flex-col p-6">
-              <p className="text-sm font-medium text-violet">{project.context}</p>
+              <p className="text-sm font-medium text-accent-2">{project.context}</p>
               <h3 className="mt-1.5 text-xl font-bold">{project.title}</h3>
               <p className="mt-2 text-ink-2">{project.description}</p>
               {project.result && (

@@ -346,6 +346,12 @@ sesión, gasta uso y las reglas importantes se pierden entre el detalle.
   → Regla: las indicaciones de interacción van con un ícono claro y no con texto. Los proyectos
   van ordenados por peso técnico (IA primero), cada uno con su contexto (materia, cliente o
   propio), las decisiones técnicas concretas y el resultado medible cuando lo hay.
+- **2026-11-02:** "Siento que queda muy quieto después el teclado en blanco; podríamos hacerlo todo de un
+  solo color, tipo teclado con RGB celeste/azul eléctrico, y usar esos estilos para la página."
+  → Regla: un solo color de marca, celeste y azul eléctrico (`--accent`, `--accent-2`), en el
+  teclado y en toda la página. Nada de arcoíris ni de acentos de otros colores. Cuando una
+  animación termina, el elemento sigue vivo con un movimiento lento y suave (la ola de luz del
+  teclado y el flotado), nunca con parpadeos.
 
 ## Fuentes
 

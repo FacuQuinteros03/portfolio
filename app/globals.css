@@ -2,23 +2,23 @@
 
 /* Todo color sale de acá. */
 :root {
-  /* Casi negro con un toque violeta: el color lo ponen las luces, no el fondo. */
-  --surface: #0c0b0f;
-  --surface-2: #15131a;
-  --surface-3: #1f1c26;
-  --line: #2a2631;
-  --line-strong: #6f6879;
-  --ink: #f6f3fa;
-  --ink-2: #c6bfd0;
-  --ink-3: #a098ab;
-  --ghost: #2f2b36;
+  /* Casi negro con un toque azul. Un solo color de marca: celeste y azul eléctrico, como las luces del teclado. */
+  --surface: #0a0b10;
+  --surface-2: #12141c;
+  --surface-3: #1b1e28;
+  --line: #262a36;
+  --line-strong: #6a7183;
+  --ink: #f2f6fc;
+  --ink-2: #bcc6d6;
+  --ink-3: #97a1b4;
+  --ghost: #2a2f3b;
   --dot: #ffffff0c;
   --glare-color: #ffffff14;
-  --accent: #c8f26d;
-  --accent-hover: #d9f894;
-  --accent-glow: #c8f26d55;
-  --on-accent: #0c0b0f;
-  --violet: #a98bff;
+  --accent: #4fc3ff;
+  --accent-hover: #7dd3ff;
+  --accent-glow: #4fc3ff55;
+  --on-accent: #06121c;
+  --accent-2: #6b97ff;
   --danger: #ff9c8a;
   --success: #a8e88a;
   --shadow: #000000a6;
@@ -26,12 +26,12 @@
   --paper: #ffffff;
 
   /* Teclado blanco */
-  --case: #e7e4ec;
-  --case-edge: #bdb8c6;
-  --key-top: #faf9fc;
-  --key-side: #b9b3c3;
-  --key-edge: #d6d1de;
-  --key-legend: #5f5869;
+  --case: #e6e9ef;
+  --case-edge: #b8bfcc;
+  --key-top: #f9fbfd;
+  --key-side: #b3bbc8;
+  --key-edge: #d3d9e3;
+  --key-legend: #5a6375;
 
   color-scheme: dark;
 }
@@ -47,7 +47,7 @@
   --color-ink-3: var(--ink-3);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
-  --color-violet: var(--violet);
+  --color-accent-2: var(--accent-2);
   --color-on-accent: var(--on-accent);
   --color-danger: var(--danger);
   --color-success: var(--success);

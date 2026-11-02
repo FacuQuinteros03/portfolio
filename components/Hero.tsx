@@ -5,6 +5,7 @@ import { CV_URL, NAME, ROLE } from '@/lib/content';
 import HeroBackground from './HeroBackground';
 import GamerKeyboard from './keyboard/GamerKeyboard';
 import { usePointerTilt } from './keyboard/usePointerTilt';
+import { hueAt } from './keyboard/hue';
 import { useScrollTyping } from './keyboard/useScrollTyping';
 
 const TEXT = NAME.toUpperCase();
@@ -50,7 +51,7 @@ export default function Hero() {
               </div>
             </div>
 
-            <GamerKeyboard typed={TEXT.slice(0, count)} pressed={pressed} />
+            <GamerKeyboard typed={TEXT.slice(0, count)} pressed={pressed} done={done && !reduced} />
 
             {/* Flecha que invita a bajar; desaparece cuando el nombre está completo. */}
             {!reduced && (
@@ -74,7 +75,7 @@ export default function Hero() {
 /** El nombre en grande: lo escrito en blanco, lo que falta apagado, así se lee entero desde el principio. */
 function TypedName({ count }: { count: number }) {
   const last = count - 1;
-  const hue = Math.round((last / (TEXT.length - 1)) * 300);
+  const hue = hueAt(last / (TEXT.length - 1));
 
   return (
     <p

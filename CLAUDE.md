@@ -31,4 +31,5 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Formulario de c
 
 ## Estado
 
-- Publicado en `main` (2026-11-02): rediseño, teclado blanco, fondo tranquilo, flecha de scroll y proyectos de IA (NLP, lluvia, dados, Uber).
+- Publicado en `main` (2026-11-02): rediseño, teclado blanco, fondo tranquilo, flecha de scroll y proyectos de IA.
+- En `claude/peaceful-pasteur-d42qc8`, sin publicar: paleta celeste/azul eléctrico en todo el sitio y el CV, y ola de luz en el teclado.
