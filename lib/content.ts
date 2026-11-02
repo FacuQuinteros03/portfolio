@@ -152,7 +152,7 @@ export const PROJECTS: Project[] = [
     tags: ['Python', 'PyTorch', 'ONNX', 'FastAPI', 'pgvector', 'Docker'],
     description:
       'Registra personas y las reconoce en fotos nuevas. Detección con SCRFD, alineación por landmarks, embeddings y búsqueda por similitud en PostgreSQL con pgvector, detrás de una API asincrónica en FastAPI. Comparé una CNN propia entrenada desde cero (ResNet chica con pérdida ArcFace) contra ArcFace R50 preentrenada y calibré el umbral para rechazar desconocidos.',
-    result: 'ArcFace R50: AUC 1,000 y top-1 100 % con 20 personas nunca vistas (CNN propia: AUC 0,906)',
+    result: 'ArcFace R50 elegido frente a la CNN propia (AUC 0,906) y validado con fotos propias, fuera del dataset',
     image: '/img/reconocimiento-facial.webp',
     width: 1400,
     height: 613,
