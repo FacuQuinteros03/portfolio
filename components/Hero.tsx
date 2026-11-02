@@ -1,5 +1,6 @@
 'use client';
 
+import { ArrowDown } from 'lucide-react';
 import { CV_URL, NAME, ROLE } from '@/lib/content';
 import HeroBackground from './HeroBackground';
 import GamerKeyboard from './keyboard/GamerKeyboard';
@@ -51,14 +52,17 @@ export default function Hero() {
 
             <GamerKeyboard typed={TEXT.slice(0, count)} pressed={pressed} />
 
+            {/* Flecha que invita a bajar; desaparece cuando el nombre está completo. */}
             {!reduced && (
-              <p
+              <div
                 aria-hidden="true"
-                className="text-center text-sm text-ink-3 tabular-nums transition-opacity duration-200"
+                className="flex justify-center transition-opacity duration-200"
                 style={{ opacity: done ? 0 : 1 }}
               >
-                Bajá para escribir mi nombre · {count}/{total}
-              </p>
+                <span className="scroll-cue flex size-11 items-center justify-center rounded-full border border-line-strong text-ink-2">
+                  <ArrowDown size={20} strokeWidth={1.75} />
+                </span>
+              </div>
             )}
           </div>
         </div>

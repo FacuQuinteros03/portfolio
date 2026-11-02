@@ -90,21 +90,93 @@ export const EXPERIENCE: Job[] = [
 
 export type Project = {
   title: string;
+  /** Dónde y cómo se hizo: materia, cliente o propio, en equipo o solo. */
+  context: string;
   tags: string[];
   description: string;
+  /** El resultado medible, si lo hay. */
+  result?: string;
   image: string;
   width: number;
   height: number;
-  link: string;
-  linkLabel: string;
+  /** Los gráficos van enteros sobre blanco; las capturas de sitios llenan el recuadro. */
+  fit?: 'cover' | 'contain';
+  /** Sin link si el código es privado. */
+  link?: string;
+  linkLabel?: string;
 };
 
 export const PROJECTS: Project[] = [
   {
+    title: 'Asistente virtual con agente ReAct',
+    context: 'Procesamiento del Lenguaje Natural · TUIA · individual',
+    tags: ['Python', 'RAG', 'LLM local', 'ChromaDB', 'Agentes'],
+    description:
+      'Asistente para una empresa de electrodomésticos que corre 100 % local, sin APIs externas. Recuperación híbrida (búsqueda semántica en ChromaDB, BM25 y re-ranking con cross-encoder), consultas generadas sobre tablas y sobre un grafo en Cypher, y un agente ReAct que decide qué herramienta usar en cada pregunta.',
+    result: 'Clasificador de intención con Qwen2.5-1.5B comparado contra TF-IDF + regresión logística',
+    image: '/img/agente-nlp.webp',
+    width: 1400,
+    height: 700,
+  },
+  {
+    title: 'Predicción de lluvia en Australia',
+    context: 'Aprendizaje Automático 1 · TUIA · en equipo',
+    tags: ['Python', 'scikit-learn', 'Keras', 'Optuna', 'SHAP', 'Docker'],
+    description:
+      'Clasificación de si llueve al día siguiente con datos meteorológicos reales. Imputación por ubicación y con KNN, codificación cíclica de fechas, regresión logística, árbol de decisión optimizado y una red neuronal con umbral calibrado, explicada con SHAP y empaquetada en Docker para hacer inferencia.',
+    result: 'Red neuronal: accuracy 84 % y F1 0,66 en test',
+    image: '/img/lluvia.webp',
+    width: 780,
+    height: 470,
+    fit: 'contain',
+    link: 'https://github.com/manuellazarte/australian-rain-prediction',
+    linkLabel: 'Ver repositorio',
+  },
+  {
+    title: 'Detección de dados en video',
+    context: 'Procesamiento de Imágenes · TUIA · en equipo',
+    tags: ['Python', 'OpenCV', 'Visión por computadora'],
+    description:
+      'Detecta los cinco dados de cada tirada, reconoce el momento en que quedan quietos midiendo el movimiento de sus centros y lee el valor de cada uno contando los puntos. Segmentación por color en HSV, morfología y componentes conectados; el resultado es el video anotado.',
+    image: '/img/dados.webp',
+    width: 1400,
+    height: 293,
+    fit: 'contain',
+    link: 'https://github.com/RoberLasarte332/PDI_TrabajoPractico_3',
+    linkLabel: 'Ver repositorio',
+  },
+  {
+    title: 'Rosario F Kits',
+    context: 'Emprendimiento propio',
+    tags: ['Next.js', 'TypeScript', 'Supabase', 'Vercel'],
+    description:
+      'Catálogo online de mi tienda de camisetas de fútbol. El stock se lee del lado del servidor, así los datos nunca llegan al navegador, y cada pedido sale armado por WhatsApp con el talle elegido. En desarrollo: un ERP propio con Supabase y panel de administración.',
+    image: '/img/rosariofkits.webp',
+    width: 1200,
+    height: 630,
+    link: 'https://rosariofkits.vercel.app',
+    linkLabel: 'Ver sitio',
+  },
+  {
+    title: 'Modelo predictivo de tarifas de Uber',
+    context: 'Aprendizaje Automático 1 · TUIA · en equipo',
+    tags: ['Python', 'scikit-learn', 'Regresión'],
+    description:
+      'Predicción de tarifas sobre 200.000 viajes. Limpieza de coordenadas y tarifas imposibles, imputación con KNN, variables de distancia y de tiempo con codificación cíclica, y comparación de regresión lineal, descenso por gradiente (batch, estocástico y mini-batch), Ridge, Lasso y ElasticNet con validación cruzada.',
+    result: 'Mejor modelo: Ridge, R² 0,73 en test',
+    image: '/img/uber.webp',
+    width: 1389,
+    height: 590,
+    fit: 'contain',
+    link: 'https://github.com/RoberLasarte332/AA1-TUIA-2026C1-Quinteros-Lazarte-Lasarte',
+    linkLabel: 'Ver repositorio',
+  },
+  {
     title: 'Estudio Jurídico Menicocci',
+    context: 'Cliente · freelance',
     tags: ['Next.js', 'Sanity.io', 'CMS'],
     description:
-      'Sitio del estudio con blog que el cliente edita solo desde Sanity. Rápido y con los avisos legales que pide la profesión.',
+      'Sitio institucional con blog que el estudio edita solo desde Sanity. Rápido y con los avisos legales que pide la profesión.',
     image: '/img/menicocci.webp',
     width: 1400,
     height: 686,
@@ -113,6 +185,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: 'Vanguard Training',
+    context: 'Cliente · freelance',
     tags: ['Next.js', 'Landing'],
     description:
       'Landing para un personal trainer: presenta los planes y junta los contactos de gente interesada.',
@@ -124,31 +197,21 @@ export const PROJECTS: Project[] = [
   },
   {
     title: 'Data Warehouse y ETL',
+    context: 'Bases de Datos 2 · TUIA',
     tags: ['SQL Server', 'SSIS', 'Power BI'],
     description:
-      'Para una empresa de bebidas: junté datos de fuentes sueltas en un data warehouse y los llevé a tableros de Power BI.',
+      'Para una empresa de bebidas: integré fuentes dispersas en un data warehouse con procesos ETL y lo llevé a tableros de Power BI.',
     image: '/img/powerbi.webp',
     width: 1400,
     height: 661,
     link: 'https://www.linkedin.com/feed/update/urn:li:activity:7404908739507470336/',
     linkLabel: 'Ver en LinkedIn',
   },
-  {
-    title: 'Importaciones de minerales',
-    tags: ['Python', 'Pandas', 'Visualización'],
-    description:
-      'Análisis exploratorio del sector minero argentino: limpieza, transformación y gráficos de tendencias.',
-    image: '/img/minerales.webp',
-    width: 1400,
-    height: 619,
-    link: 'https://colab.research.google.com/drive/19qzUmVO0ZHFGy6mC6uTvMp1gHs4I76PC',
-    linkLabel: 'Ver notebook',
-  },
 ];
 
 export const SKILLS: { name: string; tools: string[] }[] = [
   { name: 'Frontend', tools: ['React', 'Next.js', 'TypeScript', 'Tailwind'] },
-  { name: 'IA y datos', tools: ['Python', 'Pandas', 'Scikit-learn', 'NLP'] },
+  { name: 'IA y datos', tools: ['Python', 'Pandas', 'scikit-learn', 'Keras', 'OpenCV', 'NLP', 'RAG'] },
   { name: 'Datos', tools: ['SQL', 'ETL', 'Data Warehouse', 'Power BI'] },
   { name: 'Sistemas e integraciones', tools: ['APIs REST', 'Web services', 'API de Mercado Libre'] },
 ];

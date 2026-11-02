@@ -31,4 +31,4 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Formulario de c
 
 ## Estado
 
-- Rediseño publicado (PR #1 mergeado). Prueba en curso en `claude/peaceful-pasteur-d42qc8`: teclado blanco y fondo más tranquilo.
+- Rediseño publicado (PR #1 mergeado). En `claude/peaceful-pasteur-d42qc8`, sin publicar: teclado blanco, fondo más tranquilo, flecha de scroll y proyectos de IA (NLP, lluvia, dados, Uber).

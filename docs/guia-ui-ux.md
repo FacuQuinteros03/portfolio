@@ -340,6 +340,12 @@ sesión, gasta uso y las reglas importantes se pierden entre el detalle.
 - **2026-11-02:** "Capaz cambiaría el teclado a blanco para probar, y el fondo está como muy flashero."
   → Regla: el fondo acompaña, no compite: el shader va casi negro, lento y con poco color. El
   protagonista es el teclado (ahora blanco) y sus luces RGB.
+- **2026-11-02:** "Sacaría el 'bajá para escribir mi nombre' por una flecha intuitiva. Sacaría el
+  proyecto de data viz porque es muy simple; tenemos proyectos de IA más interesantes.
+  Profesionalizalo lo más que puedas."
+  → Regla: las indicaciones de interacción van con un ícono claro y no con texto. Los proyectos
+  van ordenados por peso técnico (IA primero), cada uno con su contexto (materia, cliente o
+  propio), las decisiones técnicas concretas y el resultado medible cuando lo hay.
 
 ## Fuentes
 

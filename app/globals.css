@@ -22,6 +22,8 @@
   --danger: #ff9c8a;
   --success: #a8e88a;
   --shadow: #000000a6;
+  /* Fondo de los gráficos de los notebooks, que vienen sobre blanco. */
+  --paper: #ffffff;
 
   /* Teclado blanco */
   --case: #e7e4ec;
@@ -49,6 +51,7 @@
   --color-on-accent: var(--on-accent);
   --color-danger: var(--danger);
   --color-success: var(--success);
+  --color-paper: var(--paper);
   --font-sans: var(--font-hanken), ui-sans-serif, system-ui, sans-serif;
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -174,5 +177,20 @@ section[id] {
     opacity: var(--glare, 0);
     pointer-events: none;
     transition: opacity 300ms var(--ease-out-strong);
+  }
+
+  /* La flecha del hero baja y vuelve, despacio, para indicar que hay que hacer scroll. */
+  .scroll-cue {
+    animation: scroll-cue 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  }
+
+  @keyframes scroll-cue {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(0.375rem);
+    }
   }
 }
