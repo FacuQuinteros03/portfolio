@@ -31,5 +31,4 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Formulario de c
 
 ## Estado
 
-- Publicado en `main` (2026-11-02): rediseño, teclado blanco con luces celeste/azul y ola de luz, paleta de un solo color en sitio y CV, flecha de scroll y proyectos de IA.
-- En `claude/peaceful-pasteur-d42qc8`, sin publicar: título "Laborales y personales", reconocimiento facial en lugar de los dados y Uber en tercer lugar.
+- Publicado en `main` (2026-11-02): rediseño, teclado blanco con luces celeste/azul y ola de luz, paleta de un solo color en sitio y CV, flecha de scroll y proyectos de IA (NLP, lluvia, Uber, reconocimiento facial) bajo "Laborales y personales".
