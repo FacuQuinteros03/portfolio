@@ -32,5 +32,4 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Teclado del her
 
 ## Estado
 
-- Publicado en `main` (2026-11-02): rediseño, teclado blanco con luces celeste/azul y ola de luz, paleta de un solo color en sitio y CV, flecha de scroll y proyectos de IA (NLP, lluvia, Uber, reconocimiento facial) bajo "Laborales y personales".
-- En `claude/peaceful-pasteur-d42qc8`, sin publicar: teclado 3D real con three.js.
+- Publicado en `main` (2026-11-03): rediseño, teclado 3D (three.js) blanco con luces celeste/azul y ola de luz, paleta de un solo color en sitio y CV, flecha de scroll y proyectos de IA (NLP, lluvia, Uber, reconocimiento facial) bajo "Laborales y personales".
