@@ -362,6 +362,11 @@ sesión, gasta uso y las reglas importantes se pierden entre el detalle.
   navegador simulado. Mientras no esté probado, en el celular no se muestra.
 - **2026-11-03:** "Si además la flecha fuera clickeable, ¿no?" → Regla: todo lo que invita a una acción
   también la hace. La flecha del hero es un botón que baja hasta el final de la animación.
+- **2026-11-03:** "¿Podríamos meter un cambio de colores cuando pase mucho tiempo, o aleatorio? Me
+  gustaría verlo en rojo, colores copados." · "Lo único que no me copa es que se ve como cortado."
+  → Regla: la marca sigue en azul (botones, títulos, links); solo las partículas cambian de paleta,
+  lento y con fundido (carmesí, violeta, esmeralda), o al tocarlas. Nada animado se corta en un
+  borde: el lienzo ocupa todo el hero y la cámara centra las formas en su hueco.
 
 ## Fuentes
 

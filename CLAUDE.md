@@ -33,3 +33,4 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Animación del 
 ## Estado
 
 - Publicado en `main` (2026-11-03): rediseño, hero con partículas (FQ → red neuronal → nube de datos) y flecha clickeable, paleta de un solo color en sitio y CV, proyectos de IA (NLP, lluvia, Uber, reconocimiento facial) bajo "Laborales y personales".
+- En `claude/peaceful-pasteur-d42qc8`, sin publicar: paletas que cambian solas o al tocar las partículas, y partículas sin cortes (lienzo en todo el hero).

@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { ArrowDown } from 'lucide-react';
 import { CV_URL, NAME, ROLE } from '@/lib/content';
@@ -17,6 +18,7 @@ export default function Hero() {
   const { trackRef, count, total, reduced } = useScrollTyping(TEXT);
   usePointerTilt(trackRef, !reduced);
   const done = count === total;
+  const slotRef = useRef<HTMLDivElement>(null);
 
   const scrollToEnd = () => {
     const track = trackRef.current;
@@ -35,7 +37,11 @@ export default function Hero() {
       >
         <div className="sticky top-0 isolate min-h-svh overflow-x-clip">
           <HeroBackground reduced={reduced} />
-          <div className="mx-auto flex min-h-svh max-w-[1200px] flex-col justify-center gap-[clamp(0.75rem,2.4svh,1.75rem)] px-4 pt-[4.75rem] pb-4 md:px-6">
+          {/* Las partículas se dibujan sobre todo el hero (detrás del texto), así nunca se cortan en un borde. */}
+          <div className="pointer-events-none absolute inset-0">
+            <ParticleField trackRef={trackRef} slotRef={slotRef} reduced={reduced} />
+          </div>
+          <div className="relative mx-auto flex min-h-svh max-w-[1200px] flex-col justify-center gap-[clamp(0.75rem,2.4svh,1.75rem)] px-4 pt-[4.75rem] pb-4 md:px-6">
             <h1 id="hero-title" className="sr-only">
               {NAME}, {ROLE}
             </h1>
@@ -61,10 +67,12 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Lugar reservado del mismo alto antes de que cargue, así la página no salta. */}
-            <div className="relative mx-auto h-[clamp(7rem,calc(100svh-38rem),22rem)] w-full max-w-[1100px] md:h-[clamp(9rem,calc(100svh-27rem),30rem)]">
-              <ParticleField trackRef={trackRef} reduced={reduced} />
-            </div>
+            {/* Hueco donde se centran las partículas; tocarlo cambia el color. */}
+            <div
+              ref={slotRef}
+              aria-hidden="true"
+              className="mx-auto h-[clamp(7rem,calc(100svh-38rem),22rem)] w-full max-w-[1100px] md:h-[clamp(9rem,calc(100svh-29rem),28rem)]"
+            />
 
             {/* Flecha que invita a bajar. Al tocarla baja sola hasta el final de la animación; desaparece al terminar. */}
             {!reduced && (

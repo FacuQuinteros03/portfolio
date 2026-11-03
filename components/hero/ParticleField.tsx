@@ -2,17 +2,30 @@
 
 import { useEffect, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
-import { hueAt } from './hue';
 
 type Props = {
   /** El tramo del hero: de ahí se leen --scroll, --mx y --my. */
   trackRef: RefObject<HTMLElement | null>;
+  /** El hueco reservado en el hero: las formas se centran ahí y se tocan ahí para cambiar de color. */
+  slotRef: RefObject<HTMLElement | null>;
   reduced: boolean;
 };
 
 // Tres formas que arman las mismas partículas, en este orden, a medida que se baja.
 // 1. Las iniciales FQ · 2. Una red neuronal (capas de nodos y conexiones) · 3. Una nube de datos en clusters.
 const LAYERS = [4, 7, 7, 5, 2];
+
+// Paletas de las partículas: de un tono a otro de izquierda a derecha. Arranca en la de marca (azul).
+// [tono izquierda, tono derecha] en grados.
+const PALETTES: [number, number][] = [
+  [190, 222], // celeste → azul eléctrico
+  [350, 22], //  carmesí → naranja
+  [268, 318], // violeta → magenta
+  [150, 186], // esmeralda → turquesa
+];
+const FIRST_CHANGE = 14; // segundos quieto en la página antes del primer cambio
+const HOLD = 11; //          segundos en cada paleta
+const FADE = 2.6; //         segundos que dura el fundido
 const CLUSTERS = 7;
 
 function rand(seed: number) {
@@ -165,7 +178,7 @@ function readVar(el: HTMLElement | null, name: string, fallback: number) {
   return Number.isFinite(v) ? v : fallback;
 }
 
-export default function ParticleField({ trackRef, reduced }: Props) {
+export default function ParticleField({ trackRef, slotRef, reduced }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
   const reducedRef = useRef(reduced);
   useEffect(() => {
@@ -211,8 +224,11 @@ export default function ParticleField({ trackRef, reduced }: Props) {
     geo.setAttribute('aRand', new THREE.BufferAttribute(rnd, 1));
     geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 8);
 
-    const c1 = new THREE.Color().setHSL(hueAt(0) / 360, 0.95, 0.62, THREE.SRGBColorSpace);
-    const c2 = new THREE.Color().setHSL(hueAt(1) / 360, 0.95, 0.62, THREE.SRGBColorSpace);
+    const tone = (h: number) => new THREE.Color().setHSL(h / 360, 0.95, 0.62, THREE.SRGBColorSpace);
+    const ends = PALETTES.map(([a, b]) => [tone(a), tone(b)] as const);
+    const c1 = ends[0][0].clone();
+    const c2 = ends[0][1].clone();
+    const baseSize = (small ? 46 : 58) * dpr;
     const material = new THREE.ShaderMaterial({
       vertexShader,
       fragmentShader,
@@ -222,7 +238,7 @@ export default function ParticleField({ trackRef, reduced }: Props) {
       uniforms: {
         uP: { value: 0 },
         uTime: { value: 0 },
-        uSize: { value: (small ? 46 : 58) * dpr },
+        uSize: { value: baseSize },
         uC1: { value: c1 },
         uC2: { value: c2 },
       },
@@ -234,7 +250,7 @@ export default function ParticleField({ trackRef, reduced }: Props) {
     const lineGeo = new THREE.BufferGeometry();
     lineGeo.setAttribute('position', new THREE.BufferAttribute(net.lines, 3));
     const lineMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color().setHSL(hueAt(0.5) / 360, 0.9, 0.6, THREE.SRGBColorSpace),
+      color: new THREE.Color().lerpColors(c1, c2, 0.5),
       transparent: true,
       opacity: 0,
       blending: THREE.AdditiveBlending,
@@ -264,6 +280,18 @@ export default function ParticleField({ trackRef, reduced }: Props) {
     let frame = 0;
     const smooth = { p: 0, mx: 0, my: 0 };
 
+    // Cambio de colores: lento y solo, o al tocar las partículas (pasa a la siguiente paleta).
+    const pal = { from: 0, to: 0, start: -1, next: FIRST_CHANGE };
+    const goNext = (at: number) => {
+      pal.from = pal.to;
+      pal.to = (pal.to + 1) % PALETTES.length;
+      pal.start = at;
+      pal.next = at + FADE + HOLD;
+    };
+    const onTap = () => goNext(timer.getElapsed());
+    const slot = slotRef.current;
+    slot?.addEventListener('pointerdown', onTap);
+
     const tick = (now?: number) => {
       frame = requestAnimationFrame(tick);
       timer.update(now);
@@ -279,12 +307,23 @@ export default function ParticleField({ trackRef, reduced }: Props) {
       smooth.mx += ((rd ? 0 : readVar(track, '--mx', 0)) - smooth.mx) * k;
       smooth.my += ((rd ? 0 : readVar(track, '--my', 0)) - smooth.my) * k;
 
-      // Encuadre: que entre el ancho de las formas; en pantallas angostas también el alto.
-      const vfov = THREE.MathUtils.degToRad(camera.fov);
-      const hfov = 2 * Math.atan(Math.tan(vfov / 2) * aspect);
-      const dist = Math.max(10.5 / 2 / Math.tan(hfov / 2), 5.6 / 2 / Math.tan(vfov / 2));
+      // Encuadre: el lienzo ocupa todo el hero, pero las formas se centran y se ajustan al hueco reservado.
+      // Si una forma gira y crece, sigue de largo sobre el fondo en vez de cortarse en un borde.
+      const hostBox = host.getBoundingClientRect();
+      const slotBox = slotRef.current?.getBoundingClientRect();
+      const fw = slotBox && hostBox.width ? slotBox.width / hostBox.width : 1;
+      const fh = slotBox && hostBox.height ? slotBox.height / hostBox.height : 1;
+      const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+      const dist = Math.max(10.5 / (2 * tanV * aspect * fw), 5.6 / (2 * tanV * fh));
       camera.position.set(0, 0, dist);
       camera.lookAt(0, 0, 0);
+      // Los puntos se achican con la distancia: se compensa para que se vean igual de llenos en cualquier pantalla.
+      material.uniforms.uSize.value = baseSize * (dist / 9);
+      if (slotBox) {
+        const dx = slotBox.left + slotBox.width / 2 - (hostBox.left + hostBox.width / 2);
+        const dy = slotBox.top + slotBox.height / 2 - (hostBox.top + hostBox.height / 2);
+        camera.setViewOffset(hostBox.width, hostBox.height, -dx, -dy, hostBox.width, hostBox.height);
+      }
 
       const cloud = THREE.MathUtils.smoothstep(smooth.p, 0.6, 0.95);
       group.rotation.y = smooth.mx * 0.35 + (smooth.p - 0.4) * 0.5 + cloud * t * 0.12;
@@ -295,6 +334,13 @@ export default function ParticleField({ trackRef, reduced }: Props) {
       const netShown = THREE.MathUtils.smoothstep(smooth.p, 0.2, 0.42) * (1 - THREE.MathUtils.smoothstep(smooth.p, 0.56, 0.72));
       lineMat.opacity = netShown * 0.22;
 
+      const elapsed = timer.getElapsed();
+      if (!rd && elapsed >= pal.next) goNext(elapsed);
+      const f = pal.start < 0 ? 1 : THREE.MathUtils.smoothstep(elapsed, pal.start, pal.start + FADE);
+      c1.lerpColors(ends[pal.from][0], ends[pal.to][0], f);
+      c2.lerpColors(ends[pal.from][1], ends[pal.to][1], f);
+      lineMat.color.lerpColors(c1, c2, 0.5);
+
       renderer.render(scene, camera);
     };
     tick();
@@ -303,6 +349,7 @@ export default function ParticleField({ trackRef, reduced }: Props) {
       cancelAnimationFrame(frame);
       ro.disconnect();
       io.disconnect();
+      slot?.removeEventListener('pointerdown', onTap);
       timer.dispose();
       geo.dispose();
       material.dispose();
@@ -311,14 +358,7 @@ export default function ParticleField({ trackRef, reduced }: Props) {
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [trackRef]);
+  }, [trackRef, slotRef]);
 
-  // Bordes fundidos: si alguna forma se acerca al límite del recuadro, se desvanece en vez de cortarse.
-  return (
-    <div
-      ref={hostRef}
-      aria-hidden="true"
-      className="size-full [mask-image:radial-gradient(ellipse_at_center,black_62%,transparent_100%)]"
-    />
-  );
+  return <div ref={hostRef} aria-hidden="true" className="size-full" />;
 }
