@@ -1,45 +1,36 @@
 'use client';
 
-import { useCallback, useState, useSyncExternalStore } from 'react';
 import dynamic from 'next/dynamic';
 import { ArrowDown } from 'lucide-react';
 import { CV_URL, NAME, ROLE } from '@/lib/content';
 import HeroBackground from './HeroBackground';
-import GamerKeyboard from './keyboard/GamerKeyboard';
-import { usePointerTilt } from './keyboard/usePointerTilt';
-import { hueAt } from './keyboard/hue';
-import { useScrollTyping } from './keyboard/useScrollTyping';
+import { usePointerTilt } from './hero/usePointerTilt';
+import { hueAt } from './hero/hue';
+import { useScrollTyping } from './hero/useScrollTyping';
 
 const TEXT = NAME.toUpperCase();
 
-// El teclado 3D (three.js) se carga solo en el navegador y aparte del resto de la página.
-const Keyboard3D = dynamic(() => import('./keyboard/Keyboard3D'), { ssr: false });
-
-// En el celular no hay teclado (se veía mal): el hero queda con el nombre escribiéndose y no se baja three.js.
-const WIDE = '(min-width: 768px)';
-function subscribeWide(onChange: () => void) {
-  const mq = window.matchMedia(WIDE);
-  mq.addEventListener('change', onChange);
-  return () => mq.removeEventListener('change', onChange);
-}
-function useWideScreen() {
-  return useSyncExternalStore(subscribeWide, () => window.matchMedia(WIDE).matches, () => false);
-}
+// Las partículas (three.js) se cargan solo en el navegador y aparte del resto de la página.
+const ParticleField = dynamic(() => import('./hero/ParticleField'), { ssr: false });
 
 export default function Hero() {
-  const { trackRef, count, total, pressed, reduced } = useScrollTyping(TEXT);
+  const { trackRef, count, total, reduced } = useScrollTyping(TEXT);
   usePointerTilt(trackRef, !reduced);
   const done = count === total;
-  const [webglFailed, setWebglFailed] = useState(false);
-  const onWebglFail = useCallback(() => setWebglFailed(true), []);
-  const wide = useWideScreen();
+
+  const scrollToEnd = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const end = track.getBoundingClientRect().top + window.scrollY + track.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: end, behavior: 'smooth' });
+  };
 
   return (
     <section id="inicio" aria-labelledby="hero-title">
-      {/* El tramo alto es lo que se recorre con el scroll mientras el teclado queda fijo. */}
+      {/* El tramo alto es lo que se recorre con el scroll mientras el hero queda fijo. */}
       <div
         ref={trackRef}
-        className={reduced ? undefined : 'h-[170svh] md:h-[250svh]'}
+        className={reduced ? undefined : 'h-[220svh] md:h-[250svh]'}
         style={reduced ? undefined : ({ '--scroll': 0, '--typed': 0 } as React.CSSProperties)}
       >
         <div className="sticky top-0 isolate min-h-svh overflow-x-clip">
@@ -70,32 +61,23 @@ export default function Hero() {
               </div>
             </div>
 
-            {!wide ? null : webglFailed ? (
-              <GamerKeyboard typed={TEXT.slice(0, count)} pressed={pressed} done={done && !reduced} />
-            ) : (
-              // Lugar reservado del mismo alto antes de que cargue, así la página no salta.
-              <div className="relative mx-auto h-[clamp(12rem,38svh,30rem)] w-full max-w-[1100px]">
-                <Keyboard3D
-                  trackRef={trackRef}
-                  typed={TEXT.slice(0, count)}
-                  pressed={pressed}
-                  done={done}
-                  reduced={reduced}
-                  onFail={onWebglFail}
-                />
-              </div>
-            )}
+            {/* Lugar reservado del mismo alto antes de que cargue, así la página no salta. */}
+            <div className="relative mx-auto h-[clamp(7rem,calc(100svh-38rem),22rem)] w-full max-w-[1100px] md:h-[clamp(9rem,calc(100svh-27rem),30rem)]">
+              <ParticleField trackRef={trackRef} reduced={reduced} />
+            </div>
 
-            {/* Flecha que invita a bajar; desaparece cuando el nombre está completo. */}
+            {/* Flecha que invita a bajar. Al tocarla baja sola hasta el final de la animación; desaparece al terminar. */}
             {!reduced && (
-              <div
-                aria-hidden="true"
-                className="flex justify-center transition-opacity duration-200"
-                style={{ opacity: done ? 0 : 1 }}
-              >
-                <span className="scroll-cue flex size-11 items-center justify-center rounded-full border border-line-strong text-ink-2">
-                  <ArrowDown size={20} strokeWidth={1.75} />
-                </span>
+              <div className="flex justify-center transition-opacity duration-200" style={{ opacity: done ? 0 : 1 }}>
+                <button
+                  type="button"
+                  onClick={scrollToEnd}
+                  disabled={done}
+                  aria-label="Bajar hasta el final de la animación"
+                  className="scroll-cue flex size-11 items-center justify-center rounded-full border border-line-strong text-ink-2 transition-colors duration-150 hover:border-accent hover:text-accent disabled:pointer-events-none"
+                >
+                  <ArrowDown size={20} strokeWidth={1.75} aria-hidden="true" />
+                </button>
               </div>
             )}
           </div>

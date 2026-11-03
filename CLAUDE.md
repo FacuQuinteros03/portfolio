@@ -5,8 +5,8 @@ Sitio personal publicado en https://facundoquinteros.vercel.app (Vercel, rama `m
 ## Base
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Hanken Grotesk (`next/font`).
-Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Teclado del hero en 3D con three.js
-(`components/keyboard/Keyboard3D.tsx`, se carga aparte); si no hay WebGL vuelve al teclado en CSS (`GamerKeyboard`). En pantallas de menos de 768 px no hay teclado. Formulario de contacto: el navegador manda a `app/api/contacto`, que valida con zod y llama a la API de EmailJS desde el servidor (`lib/send-email.ts`). Íconos de trazo con `lucide-react`.
+Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Animación del hero con partículas en three.js
+(`components/hero/ParticleField.tsx`, se carga aparte): FQ → red neuronal → nube de datos, según el scroll. Formulario de contacto: el navegador manda a `app/api/contacto`, que valida con zod y llama a la API de EmailJS desde el servidor (`lib/send-email.ts`). Íconos de trazo con `lucide-react`.
 
 ## Comandos
 
@@ -18,7 +18,7 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Teclado del her
 
 - Todo el texto del sitio (experiencia, proyectos, skills, links) está en `lib/content.ts`.
 - Todo color sale de un token de `app/globals.css`. Nada de hex sueltos en los componentes.
-- El nombre del hero se lee entero desde el principio (letras apagadas); el teclado es decorado (`aria-hidden`).
+- El nombre del hero se lee entero desde el principio (letras apagadas); las partículas son decorado (`aria-hidden`).
 - Con "reducir movimiento" no hay tramo de scroll: el nombre aparece completo.
 - Ningún dato de servicios ni variable de entorno llega al navegador: nada de `NEXT_PUBLIC_` para claves o IDs.
   Las respuestas al visitante nunca nombran el servicio ni la variable que falta.
@@ -33,4 +33,4 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Teclado del her
 ## Estado
 
 - Publicado en `main` (2026-11-03): rediseño, teclado 3D (three.js) blanco con luces celeste/azul y ola de luz, paleta de un solo color en sitio y CV, flecha de scroll y proyectos de IA (NLP, lluvia, Uber, reconocimiento facial) bajo "Laborales y personales".
-- Próximo: reemplazar el teclado por una animación 3D de partículas con scroll (FQ → red neuronal → nube de datos), pensada para el celular. Referencias: Codrops.
+- En `claude/peaceful-pasteur-d42qc8`, sin publicar: partículas en lugar del teclado. Probar en un celular real antes de publicar.

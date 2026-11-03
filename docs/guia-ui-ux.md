@@ -360,6 +360,8 @@ sesión, gasta uso y las reglas importantes se pierden entre el detalle.
 - **2026-11-03:** "Se ve muy mal en el celu." (el teclado 3D)
   → Regla: lo que se agrega al hero se prueba en un celular real antes de publicar, no solo en el
   navegador simulado. Mientras no esté probado, en el celular no se muestra.
+- **2026-11-03:** "Si además la flecha fuera clickeable, ¿no?" → Regla: todo lo que invita a una acción
+  también la hace. La flecha del hero es un botón que baja hasta el final de la animación.
 
 ## Fuentes
 

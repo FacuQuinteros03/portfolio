@@ -2,7 +2,7 @@
 
 /* Todo color sale de acá. */
 :root {
-  /* Casi negro con un toque azul. Un solo color de marca: celeste y azul eléctrico, como las luces del teclado. */
+  /* Casi negro con un toque azul. Un solo color de marca: celeste y azul eléctrico, como las partículas del hero. */
   --surface: #0a0b10;
   --surface-2: #12141c;
   --surface-3: #1b1e28;
@@ -24,14 +24,6 @@
   --shadow: #000000a6;
   /* Fondo de los gráficos de los notebooks, que vienen sobre blanco. */
   --paper: #ffffff;
-
-  /* Teclado blanco */
-  --case: #e6e9ef;
-  --case-edge: #b8bfcc;
-  --key-top: #f9fbfd;
-  --key-side: #b3bbc8;
-  --key-edge: #d3d9e3;
-  --key-legend: #5a6375;
 
   color-scheme: dark;
 }

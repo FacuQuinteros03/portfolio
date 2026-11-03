@@ -1,5 +1,5 @@
-// Las luces del teclado van de celeste a azul eléctrico, de izquierda a derecha.
-// Mismo rango en app/globals.css (--accent, --accent-2) y en los degradés de keyboard.module.css.
+// El color de marca va de celeste a azul eléctrico, de izquierda a derecha: partículas y nombre del hero.
+// Mismo rango que --accent y --accent-2 en app/globals.css.
 const HUE_FROM = 190;
 const HUE_TO = 222;
 
