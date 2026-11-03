@@ -17,3 +17,13 @@
 - [x] **Hero:** quedó el teclado gamer (opción A). La B se borró.
 - [ ] Se sacó el chat con Gemini (`api/chat.js`), que estaba apagado. Si se quiere de vuelta, va como
       route handler en `app/api/chat/route.ts`; la variable `GEMINI_API_KEY` en Vercel ya no se usa.
+
+## Para más adelante
+
+- [ ] **Video para LinkedIn** mostrando el portfolio nuevo (grabación del sitio real con Playwright +
+      ffmpeg: intro, teclado escribiendo el nombre, Neuralsoft, proyectos y cierre con el link).
+      Se hace cuando esté actualizado lo de Neuralsoft.
+- [ ] **Neuralsoft:** el 2026-11-03 terminó la capacitación en FastPRG; desde el 2026-11-04 sigue con
+      MyLogic. Falta saber qué puesto le asignan. Cuando se sepa, actualizar la tarjeta en
+      `lib/content.ts` y el CV (`cv/cv.html`, `npm run cv`).
+
