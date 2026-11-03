@@ -357,6 +357,9 @@ sesión, gasta uso y las reglas importantes se pierden entre el detalle.
   → Regla: lo que se presenta como 3D se dibuja en 3D de verdad (WebGL, a la resolución de la
   pantalla), no con CSS rotado, que en el celular se ve borroso. En pantallas angostas se encuadra
   el centro del objeto para que se lea, con los bordes fundidos y nunca un corte seco.
+- **2026-11-03:** "Se ve muy mal en el celu." (el teclado 3D)
+  → Regla: lo que se agrega al hero se prueba en un celular real antes de publicar, no solo en el
+  navegador simulado. Mientras no esté probado, en el celular no se muestra.
 
 ## Fuentes
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useSyncExternalStore } from 'react';
 import dynamic from 'next/dynamic';
 import { ArrowDown } from 'lucide-react';
 import { CV_URL, NAME, ROLE } from '@/lib/content';
@@ -15,19 +15,31 @@ const TEXT = NAME.toUpperCase();
 // El teclado 3D (three.js) se carga solo en el navegador y aparte del resto de la página.
 const Keyboard3D = dynamic(() => import('./keyboard/Keyboard3D'), { ssr: false });
 
+// En el celular no hay teclado (se veía mal): el hero queda con el nombre escribiéndose y no se baja three.js.
+const WIDE = '(min-width: 768px)';
+function subscribeWide(onChange: () => void) {
+  const mq = window.matchMedia(WIDE);
+  mq.addEventListener('change', onChange);
+  return () => mq.removeEventListener('change', onChange);
+}
+function useWideScreen() {
+  return useSyncExternalStore(subscribeWide, () => window.matchMedia(WIDE).matches, () => false);
+}
+
 export default function Hero() {
   const { trackRef, count, total, pressed, reduced } = useScrollTyping(TEXT);
   usePointerTilt(trackRef, !reduced);
   const done = count === total;
   const [webglFailed, setWebglFailed] = useState(false);
   const onWebglFail = useCallback(() => setWebglFailed(true), []);
+  const wide = useWideScreen();
 
   return (
     <section id="inicio" aria-labelledby="hero-title">
       {/* El tramo alto es lo que se recorre con el scroll mientras el teclado queda fijo. */}
       <div
         ref={trackRef}
-        className={reduced ? undefined : 'h-[220svh] md:h-[250svh]'}
+        className={reduced ? undefined : 'h-[170svh] md:h-[250svh]'}
         style={reduced ? undefined : ({ '--scroll': 0, '--typed': 0 } as React.CSSProperties)}
       >
         <div className="sticky top-0 isolate min-h-svh overflow-x-clip">
@@ -58,7 +70,7 @@ export default function Hero() {
               </div>
             </div>
 
-            {webglFailed ? (
+            {!wide ? null : webglFailed ? (
               <GamerKeyboard typed={TEXT.slice(0, count)} pressed={pressed} done={done && !reduced} />
             ) : (
               // Lugar reservado del mismo alto antes de que cargue, así la página no salta.
