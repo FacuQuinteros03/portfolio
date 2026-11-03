@@ -352,6 +352,11 @@ sesión, gasta uso y las reglas importantes se pierden entre el detalle.
   teclado y en toda la página. Nada de arcoíris ni de acentos de otros colores. Cuando una
   animación termina, el elemento sigue vivo con un movimiento lento y suave (la ola de luz del
   teclado y el flotado), nunca con parpadeos.
+- **2026-11-03:** "Estaba scrolleando en el celu y se bugueó el teclado, no se ve con buena calidad;
+  podemos mejorarlo de una forma más realista, más en 3D."
+  → Regla: lo que se presenta como 3D se dibuja en 3D de verdad (WebGL, a la resolución de la
+  pantalla), no con CSS rotado, que en el celular se ve borroso. En pantallas angostas se encuadra
+  el centro del objeto para que se lea, con los bordes fundidos y nunca un corte seco.
 
 ## Fuentes
 

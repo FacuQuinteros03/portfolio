@@ -5,7 +5,8 @@ Sitio personal publicado en https://facundoquinteros.vercel.app (Vercel, rama `m
 ## Base
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Hanken Grotesk (`next/font`).
-Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Formulario de contacto: el navegador manda a `app/api/contacto`, que valida con zod y llama a la API de EmailJS desde el servidor (`lib/send-email.ts`). Íconos de trazo con `lucide-react`.
+Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Teclado del hero en 3D con three.js
+(`components/keyboard/Keyboard3D.tsx`, se carga aparte); si no hay WebGL vuelve al teclado en CSS (`GamerKeyboard`). Formulario de contacto: el navegador manda a `app/api/contacto`, que valida con zod y llama a la API de EmailJS desde el servidor (`lib/send-email.ts`). Íconos de trazo con `lucide-react`.
 
 ## Comandos
 
@@ -32,3 +33,4 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Formulario de c
 ## Estado
 
 - Publicado en `main` (2026-11-02): rediseño, teclado blanco con luces celeste/azul y ola de luz, paleta de un solo color en sitio y CV, flecha de scroll y proyectos de IA (NLP, lluvia, Uber, reconocimiento facial) bajo "Laborales y personales".
+- En `claude/peaceful-pasteur-d42qc8`, sin publicar: teclado 3D real con three.js.

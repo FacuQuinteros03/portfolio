@@ -1,5 +1,7 @@
 'use client';
 
+import { useCallback, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { ArrowDown } from 'lucide-react';
 import { CV_URL, NAME, ROLE } from '@/lib/content';
 import HeroBackground from './HeroBackground';
@@ -10,10 +12,15 @@ import { useScrollTyping } from './keyboard/useScrollTyping';
 
 const TEXT = NAME.toUpperCase();
 
+// El teclado 3D (three.js) se carga solo en el navegador y aparte del resto de la página.
+const Keyboard3D = dynamic(() => import('./keyboard/Keyboard3D'), { ssr: false });
+
 export default function Hero() {
   const { trackRef, count, total, pressed, reduced } = useScrollTyping(TEXT);
   usePointerTilt(trackRef, !reduced);
   const done = count === total;
+  const [webglFailed, setWebglFailed] = useState(false);
+  const onWebglFail = useCallback(() => setWebglFailed(true), []);
 
   return (
     <section id="inicio" aria-labelledby="hero-title">
@@ -51,7 +58,21 @@ export default function Hero() {
               </div>
             </div>
 
-            <GamerKeyboard typed={TEXT.slice(0, count)} pressed={pressed} done={done && !reduced} />
+            {webglFailed ? (
+              <GamerKeyboard typed={TEXT.slice(0, count)} pressed={pressed} done={done && !reduced} />
+            ) : (
+              // Lugar reservado del mismo alto antes de que cargue, así la página no salta.
+              <div className="relative mx-auto h-[clamp(12rem,38svh,30rem)] w-full max-w-[1100px]">
+                <Keyboard3D
+                  trackRef={trackRef}
+                  typed={TEXT.slice(0, count)}
+                  pressed={pressed}
+                  done={done}
+                  reduced={reduced}
+                  onFail={onWebglFail}
+                />
+              </div>
+            )}
 
             {/* Flecha que invita a bajar; desaparece cuando el nombre está completo. */}
             {!reduced && (
