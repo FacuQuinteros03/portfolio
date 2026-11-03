@@ -1,8 +1,31 @@
 @import 'tailwindcss';
 
+/* Los colores de marca se registran como <color> para que, al cambiar de tema, pasen con un fundido.
+   Los valores de :root son los del tema azul; los demás temas están en components/hero/themes.ts. */
+@property --accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #4fc3ff;
+}
+@property --accent-hover {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #7dd3ff;
+}
+@property --accent-glow {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #4fc3ff55;
+}
+@property --accent-2 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #6b97ff;
+}
+
 /* Todo color sale de acá. */
 :root {
-  /* Casi negro con un toque azul. Un solo color de marca: celeste y azul eléctrico, como las partículas del hero. */
+  /* Casi negro con un toque azul. El color de marca arranca en celeste y azul eléctrico y cambia con las partículas. */
   --surface: #0a0b10;
   --surface-2: #12141c;
   --surface-3: #1b1e28;
@@ -26,6 +49,11 @@
   --paper: #ffffff;
 
   color-scheme: dark;
+  transition:
+    --accent 2.6s ease-in-out,
+    --accent-hover 2.6s ease-in-out,
+    --accent-glow 2.6s ease-in-out,
+    --accent-2 2.6s ease-in-out;
 }
 
 @theme inline {

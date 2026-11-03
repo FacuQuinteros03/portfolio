@@ -18,6 +18,8 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Animación del 
 
 - Todo el texto del sitio (experiencia, proyectos, skills, links) está en `lib/content.ts`.
 - Todo color sale de un token de `app/globals.css`. Nada de hex sueltos en los componentes.
+- Los colores de marca son temas en `components/hero/themes.ts` (el primero, azul, es el de `:root`). Las
+  partículas los recorren y cambian `--accent*` de toda la página; un tema nuevo se mide a AA antes de sumarlo.
 - El nombre del hero se lee entero desde el principio (letras apagadas); las partículas son decorado (`aria-hidden`).
 - Con "reducir movimiento" no hay tramo de scroll: el nombre aparece completo.
 - Ningún dato de servicios ni variable de entorno llega al navegador: nada de `NEXT_PUBLIC_` para claves o IDs.
@@ -33,4 +35,4 @@ Fondo del hero con `@paper-design/shaders-react` (MeshGradient). Animación del 
 ## Estado
 
 - Publicado en `main` (2026-11-03): rediseño, hero con partículas (FQ → red neuronal → nube de datos) y flecha clickeable, paleta de un solo color en sitio y CV, proyectos de IA (NLP, lluvia, Uber, reconocimiento facial) bajo "Laborales y personales".
-- En `claude/peaceful-pasteur-d42qc8`, sin publicar: paletas que cambian solas o al tocar las partículas, y partículas sin cortes (lienzo en todo el hero).
+- En `claude/peaceful-pasteur-d42qc8`, sin publicar: temas de color (partículas e interfaz cambian juntos, solos o al tocar) y partículas sin cortes.

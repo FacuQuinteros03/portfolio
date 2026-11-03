@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { MeshGradient } from '@paper-design/shaders-react';
 
-// Luces del fondo del hero: apenas un tinte sobre el negro, para que acompañe sin llamar la atención.
-const COLORS = ['#0a0b10', '#0a1d36', '#0a0b10', '#06283a', '#0a0b10', '#0f1a3a', '#0a0b10'];
+import { THEMES, useThemeIndex } from './hero/themes';
 
 export default function HeroBackground({ reduced }: { reduced: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
+  // Las luces del fondo siguen el tema actual (cambian junto con las partículas).
+  const colors = THEMES[useThemeIndex()].background;
 
   // Fuera de pantalla el shader se frena, así no gasta batería.
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function HeroBackground({ reduced }: { reduced: boolean }) {
     <div ref={ref} aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <MeshGradient
         className="absolute inset-0 size-full"
-        colors={COLORS}
+        colors={colors}
         distortion={0.5}
         swirl={0.15}
         grainMixer={0.12}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, type RefObject } from 'react';
 import * as THREE from 'three';
+import { applyTheme, THEMES } from './themes';
 
 type Props = {
   /** El tramo del hero: de ahí se leen --scroll, --mx y --my. */
@@ -15,16 +16,9 @@ type Props = {
 // 1. Las iniciales FQ · 2. Una red neuronal (capas de nodos y conexiones) · 3. Una nube de datos en clusters.
 const LAYERS = [4, 7, 7, 5, 2];
 
-// Paletas de las partículas: de un tono a otro de izquierda a derecha. Arranca en la de marca (azul).
-// [tono izquierda, tono derecha] en grados.
-const PALETTES: [number, number][] = [
-  [190, 222], // celeste → azul eléctrico
-  [350, 22], //  carmesí → naranja
-  [268, 318], // violeta → magenta
-  [150, 186], // esmeralda → turquesa
-];
+// Las paletas son los temas de components/hero/themes.ts: al cambiar, cambia también toda la interfaz.
 const FIRST_CHANGE = 14; // segundos quieto en la página antes del primer cambio
-const HOLD = 11; //          segundos en cada paleta
+const HOLD = 11; //          segundos en cada tema
 const FADE = 2.6; //         segundos que dura el fundido
 const CLUSTERS = 7;
 
@@ -225,7 +219,7 @@ export default function ParticleField({ trackRef, slotRef, reduced }: Props) {
     geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 8);
 
     const tone = (h: number) => new THREE.Color().setHSL(h / 360, 0.95, 0.62, THREE.SRGBColorSpace);
-    const ends = PALETTES.map(([a, b]) => [tone(a), tone(b)] as const);
+    const ends = THEMES.map(({ particles: [a, b] }) => [tone(a), tone(b)] as const);
     const c1 = ends[0][0].clone();
     const c2 = ends[0][1].clone();
     const baseSize = (small ? 46 : 58) * dpr;
@@ -284,9 +278,10 @@ export default function ParticleField({ trackRef, slotRef, reduced }: Props) {
     const pal = { from: 0, to: 0, start: -1, next: FIRST_CHANGE };
     const goNext = (at: number) => {
       pal.from = pal.to;
-      pal.to = (pal.to + 1) % PALETTES.length;
+      pal.to = (pal.to + 1) % THEMES.length;
       pal.start = at;
       pal.next = at + FADE + HOLD;
+      applyTheme(pal.to);
     };
     const onTap = () => goNext(timer.getElapsed());
     const slot = slotRef.current;

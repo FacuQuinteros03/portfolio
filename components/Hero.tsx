@@ -6,7 +6,6 @@ import { ArrowDown } from 'lucide-react';
 import { CV_URL, NAME, ROLE } from '@/lib/content';
 import HeroBackground from './HeroBackground';
 import { usePointerTilt } from './hero/usePointerTilt';
-import { hueAt } from './hero/hue';
 import { useScrollTyping } from './hero/useScrollTyping';
 
 const TEXT = NAME.toUpperCase();
@@ -98,7 +97,6 @@ export default function Hero() {
 /** El nombre en grande: lo escrito en blanco, lo que falta apagado, así se lee entero desde el principio. */
 function TypedName({ count }: { count: number }) {
   const last = count - 1;
-  const hue = hueAt(last / (TEXT.length - 1));
 
   return (
     <p
@@ -106,12 +104,8 @@ function TypedName({ count }: { count: number }) {
       className="text-center text-[clamp(2.6rem,min(8.5vw,12svh),6rem)] leading-[0.95] font-bold tracking-tight"
     >
       <span>{TEXT.slice(0, Math.max(0, last))}</span>
-      {/* La última letra escrita toma el color de su luz, como la tecla que se acaba de apretar. */}
-      {count > 0 && (
-        <span style={{ color: `hsl(${hue} 95% 72%)`, textShadow: `0 0 0.4em hsl(${hue} 95% 60% / 0.6)` }}>
-          {TEXT[last]}
-        </span>
-      )}
+      {/* La última letra escrita toma el color del tema, con un brillo. */}
+      {count > 0 && <span className="text-accent [text-shadow:0_0_0.4em_var(--accent-glow)]">{TEXT[last]}</span>}
       <span className="relative">
         <span className="absolute top-[0.08em] -left-[0.04em] h-[0.82em] w-[0.07em] bg-accent shadow-[0_0_1rem_var(--accent-glow)]" />
       </span>

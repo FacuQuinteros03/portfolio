@@ -367,6 +367,13 @@ sesión, gasta uso y las reglas importantes se pierden entre el detalle.
   → Regla: la marca sigue en azul (botones, títulos, links); solo las partículas cambian de paleta,
   lento y con fundido (carmesí, violeta, esmeralda), o al tocarlas. Nada animado se corta en un
   borde: el lienzo ocupa todo el hero y la cámara centra las formas en su hueco.
+- **2026-11-03:** "Si cambiamos los colores de los nodos, cambiaría todos los estilos de la interfaz;
+  podemos trabajar con tokens de colores y estilos."
+  → Regla (reemplaza la de "solo las partículas cambian"): los colores de marca son temas en
+  `components/hero/themes.ts` (azul, carmesí, violeta, esmeralda). Al cambiar el tema de las
+  partículas cambian los tokens `--accent`, `--accent-hover`, `--accent-glow` y `--accent-2` de toda
+  la página, con un fundido de 2,6 s. Solo cambia mientras el hero está a la vista: al leer, el color
+  queda quieto. Todo tema nuevo se mide antes de sumarlo (AA sobre `--surface` y `--surface-2`).
 
 ## Fuentes
 
